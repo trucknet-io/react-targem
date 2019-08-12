@@ -1,0 +1,6 @@
+{
+  "extends": "tslint-config-trucknet-io",
+  "rules": {
+    "no-typeof-undefined": false
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "typeRoots": ["../node_modules/@types", "./@types"],
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@lib": ["../src"],
+      "@lib/*": ["../src/*"]
+    },
+    "module": "esnext",
+    "isolatedModules": true
+  },
+  "include": ["../src/**/*", "./src/**/*", "../__utils__/**/*"]
+}

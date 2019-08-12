@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "jsx": "react",
+    "lib": ["es2015", "es2017", "dom"],
+    "baseUrl": ".",
+    "typeRoots": ["node_modules/@types"],
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "target": "es5",
+    "module": "commonjs"
+  },
+  "include": ["./src/**/*"]
+}

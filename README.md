@@ -1,11 +1,7 @@
-<h1 align="center">
-  <img src="logo" />
-  <br />
-  <br />
-  react-targem
-  <br />
-  <img src="" alt="npm version" class="badge"> <img src="travis" />
-</h1>
+# react-targem
+
+[![Build Status](https://travis-ci.org/goooseman/react-targem.svg?branch=develop)](https://travis-ci.org/goooseman/react-targem)
+[![Coverage Status](https://coveralls.io/repos/github/goooseman/react-targem/badge.svg?branch=develop)](https://coveralls.io/github/goooseman/react-targem?branch=develop)
 
 **react-targem** is a React library for efficiently implementing Gettext localization in your app with little effort.
 
@@ -13,11 +9,9 @@ It utilises [`node-gettext`](https://github.com/alexanderwallin/node-gettext) as
 
 ```js
 <T
-	message="You have one thingy, {{ itemLink:check it out }}"
-	messagePlural="You have {{ count }} thingies, {{ listLink:check them out }}"
-	count={items.length}
-	itemLink={<a href={`/thingies/${items[0].id}`} />}
-	listLink={<a href="/thingies" />}
+  message="You have one thingy, {{ itemLink:check it out }}"
+  messagePlural="You have {{ count }} thingies, {{ listLink:check them out }}"
+  count={items.length}
 />
 // items.length === 1 => Du har en grej, <a href="/thingies/281">kolla in den här<a/>.
 // items.length === 7 => Du har 7 grejer, <a href="/thingies">kolla in dem här<a/>.
@@ -25,19 +19,19 @@ It utilises [`node-gettext`](https://github.com/alexanderwallin/node-gettext) as
 
 ## Table of contents
 
-- [Table of contents](#table-of-contents)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Using `<T />`](#using-t)
-  - [Using `withTranslators(Component)`](#using-withtranslatorscomponent)
-  - [Via `babel-plugin-react-gettext-parser`](#via-babel-plugin-react-gettext-parser)
-  - [Locale switching](#locale-switching)
-- [API](#api)
-  - [`withTranslations(Component)`](#withtranslationscomponent)
-  - [`<TargemProvider />`](#targemprovider)
-- [Contributing](#contributing)
-- [See also](#see-also)
+- [react-targem](#react-targem)
+  - [Table of contents](#table-of-contents)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Using `<T />`](#using-t)
+    - [Using `withTranslators(Component)`](#using-withtranslatorscomponent)
+    - [Locale switching](#locale-switching)
+  - [API](#api)
+    - [`withTranslations(Component)`](#withtranslationscomponent)
+    - [`<TargemProvider />`](#targemprovider)
+  - [Contributing](#contributing)
+  - [See also](#see-also)
 
 ## Features
 
@@ -119,52 +113,18 @@ Sometimes, you will need to just translate and interpolate pure strings, without
 import { withTranslators } from "react-targem";
 
 function PotatoNotification({ notificationCode, t }) {
-	let message = "";
+  let message = "";
 
-	if (notificationCode === "POTATOES_RECEIVED") {
-		message = t(`You have received potatoes`);
-	} else if (notificationCode === "POTATOES_STOLEN") {
-		message = t(`Someone stole all your potatoes :(`);
-	}
+  if (notificationCode === "POTATOES_RECEIVED") {
+    message = t(`You have received potatoes`);
+  } else if (notificationCode === "POTATOES_STOLEN") {
+    message = t(`Someone stole all your potatoes :(`);
+  }
 
-	return <span>{message}</span>;
+  return <span>{message}</span>;
 }
 
 export default withTranslators(PotatoNotification);
-```
-
-### Via [`babel-plugin-react-gettext-parser`](http://github.com/alexanderwallin/babel-plugin-react-gettext-parser)
-
-```js
-// .babelrc
-{
-  ...
-  "plugins": [
-    ["react-gettext-parser", {
-      "output": "gettext.pot",
-      "funcArgumentsMap": {
-        "tc": ["msgid", null],
-        "tcn": ["msgid", "msgid_plural", null, null],
-        "tcp": ["msgctxt", "msgid", null],
-        "tcnp": ["msgctxt", "msgid", "msgid_plural", null, null],
-
-        "t": ["msgid"],
-        "tn": ["msgid", "msgid_plural", null],
-        "tp": ["msgctxt", "msgid"],
-        "tnp": ["msgctxt", "msgid", "msgid_plural", null]
-      },
-      "componentPropsMap": {
-        "T": {
-          "message": "msgid",
-          "messagePlural": "msgid_plural",
-          "context": "msgctxt",
-          "comment": "comment"
-        }
-      }
-    }]
-  ]
-  ...
-}
 ```
 
 ### Locale switching

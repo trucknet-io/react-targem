@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"POT-Creation-Date: Mon Aug 12 2019 14:16:07 GMT+0300 (Eastern European "
+"Summer Time)\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? 2 "
+": 3);\n"
+"Project-Id-Version: react-targem 0.0.0\n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"X-Generator: Poedit 2.2.1\n"
+"Last-Translator: \n"
+"Language: he\n"
+
+#: dev/src/layouts/Body.tsx:14
+msgid "Hello, World!"
+msgstr ""
+
+#: dev/src/layouts/Body.tsx:18
+msgid "Hello, {{ name }}!"
+msgstr ""
+
+#: dev/src/layouts/Body.tsx:23
+#: dev/src/layouts/Body.tsx:32
+msgid "There is {{ count }} line of code"
+msgid_plural "There are {{ count }} lines of code"
+msgstr[0] ""
+msgstr[1] ""
+
+#: dev/src/layouts/Inner.tsx:12
+msgid "Current locale"
+msgstr ""
+
+#: dev/src/layouts/Inner.tsx:17
+msgid "There is {{ count }} button"
+msgid_plural "There are {{ count }} buttons"
+msgstr[0] ""
+msgstr[1] ""
