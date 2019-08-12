@@ -77,6 +77,34 @@ export class Gettext {
     });
   }
 
+  public areTranslationsEqual(translations: TranslationsMap): boolean {
+    const translationsKeys = Object.keys(translations);
+    if (translationsKeys.length !== Object.keys(this.catalogs).length) {
+      return false;
+    }
+    return translationsKeys.every((locale) =>
+      this.isTranslationEqualToCatalog(locale, translations[locale]),
+    );
+  }
+
+  public isTranslationEqualToCatalog(
+    locale: string,
+    newCatalog?: ParsedPot,
+  ): boolean {
+    const catalog = this.catalogs[locale];
+    if (newCatalog === catalog) {
+      return true;
+    }
+    if (newCatalog && catalog) {
+      return (
+        newCatalog.charset === catalog.charset &&
+        newCatalog.headers === catalog.headers &&
+        newCatalog.translations === catalog.translations
+      );
+    }
+    return false;
+  }
+
   /**
    * Sets the locale to get translated messages for.
    */
@@ -108,8 +136,8 @@ export class Gettext {
    */
   public translate(
     msgid: string,
-    msgidPlural?: string,
     msgctxt?: string,
+    msgidPlural?: string,
     count: number = 1,
   ) {
     let defaultTranslation = msgid;

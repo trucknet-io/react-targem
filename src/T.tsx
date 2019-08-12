@@ -1,39 +1,38 @@
 import React from "react";
 
-import { interpolateString, InterpolationScope } from "./interpolators";
+import { InterpolationScope } from "./interpolators";
 import { withLocale, WithLocale } from "./TargemProvider";
 import { TranslateParams } from "./translators";
 
-export interface TProps extends InterpolationScope, TranslateParams {
+export interface TProps extends TranslateParams {
   children?: string;
   asString?: boolean;
+  scope?: InterpolationScope;
 }
 
 export class TBase extends React.PureComponent<WithLocale & TProps> {
   public render() {
-    const translation = this.getTranslatedString();
-    return this.props.asString ? translation : <span>{translation}</span>;
-  }
-
-  private getTranslatedString = () => {
     const {
+      asString,
       children,
+      context,
+      count,
       message,
       messagePlural,
-      count,
+      scope,
       tn,
-      ...scope
     } = this.props;
 
     const translation = tn(
       message || children || "",
       messagePlural || "",
       count || 1,
+      context,
       scope,
     );
 
-    return interpolateString(translation, scope);
-  };
+    return asString ? translation : <span>{translation}</span>;
+  }
 }
 
 export const T = withLocale(TBase);

@@ -15,7 +15,8 @@ class Body extends React.PureComponent {
         </h1>
 
         <h1>
-          `name` interpolation: <T message="Hello, {{ name }}!" name="Alex" />
+          `name` interpolation:{" "}
+          <T message="Hello, {{ name }}!" scope={{ name: "Alex" }} />
         </h1>
 
         <h1>

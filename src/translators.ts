@@ -10,14 +10,10 @@ export type TranslateParams = {
 
 export const t = (gettext: Gettext) => (
   message: string,
-  { messagePlural, context, ...scope }: InterpolationScope = {},
+  context?: string,
+  scope: InterpolationScope = {},
 ): string => {
-  const translated = gettext.translate(
-    message,
-    messagePlural as string,
-    context as string,
-    scope.count as number,
-  );
+  const translated = gettext.translate(message, context);
   return interpolateString(translated, scope);
 };
 
@@ -25,13 +21,9 @@ export const tn = (gettext: Gettext) => (
   message: string,
   messagePlural: string,
   count: number,
-  { context, ...scope }: InterpolationScope = {},
+  context?: string,
+  scope: InterpolationScope = {},
 ): string => {
-  const translated = gettext.translate(
-    message,
-    messagePlural,
-    context as string,
-    count,
-  );
+  const translated = gettext.translate(message, context, messagePlural, count);
   return interpolateString(translated, { ...scope, count });
 };

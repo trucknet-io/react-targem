@@ -24,6 +24,10 @@ export type TargemProps = {
   getDirection?(locale: string): LocaleDirection;
 };
 
+export type TargemState = WithLocale & {
+  gettext: Gettext;
+};
+
 const { Provider, Consumer } = React.createContext<WithLocale>({
   locale: "en",
   direction: "ltr",
@@ -34,36 +38,72 @@ const { Provider, Consumer } = React.createContext<WithLocale>({
 
 export { Provider as RawLocaleProvider };
 
-export class TargemProvider extends React.Component<TargemProps, WithLocale> {
-  private gettext: Gettext = new Gettext();
-
-  private t = t(this.gettext);
-  private tn = tn(this.gettext);
-
+export class TargemProvider extends React.Component<TargemProps, TargemState> {
   constructor(props: TargemProps) {
     super(props);
 
-    const locale = props.locale || this.getDefaultLocale();
-
-    this.gettext.addMultipleTranslations(props.translations);
-    this.gettext.setLocale(locale);
+    const locale = TargemProvider.getCurrentLocale(props);
+    const gettext = TargemProvider.getGettextInstance(locale, props);
 
     this.state = {
-      ...this.getStateForLocale(locale),
+      ...TargemProvider.getLocaleState(locale, props),
       changeLocale: this.changeLocale,
-      t: this.t,
-      tn: this.tn,
+      gettext,
+      t: t(gettext),
+      tn: tn(gettext),
     };
-    this.changeBodyDir(locale);
+    TargemProvider.changeBodyDir(locale, props);
   }
 
-  public render() {
-    const { children } = this.props;
-    return <Provider value={this.state}>{children}</Provider>;
+  public static getDerivedStateFromProps(
+    props: TargemProps,
+    state: TargemState,
+  ) {
+    const newState: Partial<TargemState> = {};
+
+    if (props.locale && props.locale !== state.locale) {
+      state.gettext.setLocale(props.locale);
+      TargemProvider.changeBodyDir(props.locale, props);
+      Object.assign(
+        newState,
+        TargemProvider.getLocaleState(props.locale, props),
+      );
+    }
+
+    if (!state.gettext.areTranslationsEqual(props.translations)) {
+      Object.assign(newState, {
+        gettext: TargemProvider.getGettextInstance(
+          newState.locale || state.locale,
+          props,
+        ),
+      });
+    }
+
+    return Object.keys(newState).length === 0 ? null : newState;
   }
 
-  private getDefaultLocale = (): string => {
-    const locales = this.getSupportedLocales();
+  private static getGettextInstance = (
+    locale: string,
+    props: TargemProps,
+  ): Gettext => {
+    const gettext = new Gettext();
+    gettext.addMultipleTranslations(props.translations);
+    gettext.setLocale(locale);
+    return gettext;
+  };
+
+  private static getCurrentLocale = (
+    props: TargemProps,
+    state?: TargemState,
+  ): string => {
+    if (state) {
+      return state.locale;
+    }
+    return props.locale || TargemProvider.getDefaultLocale(props);
+  };
+
+  private static getDefaultLocale = (props: TargemProps): string => {
+    const locales = TargemProvider.getSupportedLocales(props);
     if (typeof window !== "undefined" && window.navigator.language) {
       try {
         return findLocale(locales, window.navigator.language);
@@ -74,11 +114,24 @@ export class TargemProvider extends React.Component<TargemProps, WithLocale> {
     return locales[0];
   };
 
-  private changeBodyDir = (locale: string) => {
-    const direction = this.getDirection(locale);
-    const { changeBodyDir } = this.props;
-    if (changeBodyDir) {
-      changeBodyDir(direction);
+  private static getDirection = (
+    locale: string,
+    props: TargemProps,
+  ): LocaleDirection => {
+    if (props.getDirection) {
+      return props.getDirection(locale) || "ltr";
+    }
+    return RTL_LOCALES.includes(locale.toLowerCase()) ? "rtl" : "ltr";
+  };
+
+  private static getSupportedLocales = (props: TargemProps): string[] => {
+    return Object.keys(props.translations);
+  };
+
+  private static changeBodyDir = (locale: string, props: TargemProps) => {
+    const direction = TargemProvider.getDirection(locale, props);
+    if (props.changeBodyDir) {
+      props.changeBodyDir(direction);
       return;
     }
 
@@ -87,37 +140,26 @@ export class TargemProvider extends React.Component<TargemProps, WithLocale> {
     }
   };
 
-  private getDirection = (locale: string): LocaleDirection => {
-    const { getDirection } = this.props;
-    if (getDirection) {
-      return getDirection(locale) || "ltr";
-    }
-    return RTL_LOCALES.includes(locale.toLowerCase()) ? "rtl" : "ltr";
-  };
-
-  private changeLocale = (locale: string) => {
-    if (locale === this.state.locale) {
-      return;
-    }
-    this.gettext.setLocale(locale);
-    this.setState(this.getStateForLocale(locale));
-    this.handleLocaleChanged(locale);
-  };
-
-  private getStateForLocale = (locale: string) => {
-    const direction = this.getDirection(locale);
+  private static getLocaleState = (locale: string, props: TargemProps) => {
+    const direction = TargemProvider.getDirection(locale, props);
     return {
       locale,
       direction,
     };
   };
 
-  private handleLocaleChanged = (localeCode: string) => {
-    this.changeBodyDir(localeCode);
-  };
+  public render() {
+    const { children } = this.props;
+    return <Provider value={this.state}>{children}</Provider>;
+  }
 
-  private getSupportedLocales = (): string[] => {
-    return Object.keys(this.props.translations);
+  private changeLocale = (locale: string) => {
+    if (locale === this.state.locale) {
+      return;
+    }
+    this.state.gettext.setLocale(locale);
+    this.setState(TargemProvider.getLocaleState(locale, this.props));
+    TargemProvider.changeBodyDir(locale, this.props);
   };
 }
 
