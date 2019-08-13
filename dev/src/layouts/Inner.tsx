@@ -32,14 +32,14 @@ class Inner extends React.PureComponent<WithLocale> {
   }
 
   private increaseLocale = (increment: number) => {
-    const { changeLocale, locale } = this.props;
+    const { locale } = this.props;
     const index = SUPPORTED_LOCALES.indexOf(locale);
     let newIndex = (index + increment) % SUPPORTED_LOCALES.length;
     if (newIndex < 0) {
       newIndex =
         (SUPPORTED_LOCALES.length + newIndex) % SUPPORTED_LOCALES.length;
     }
-    changeLocale(SUPPORTED_LOCALES[newIndex]);
+    // changeLocale(SUPPORTED_LOCALES[newIndex]);
   };
 
   private setNextLocale = () => {

@@ -20,6 +20,7 @@ const paths = {
   entry: {
     main: "./src/index.tsx",
   },
+  tsconfig: path.join(__dirname, "./tsconfig.json"),
 };
 
 const TITLE = "Boilerplate";
@@ -80,7 +81,7 @@ module.exports = {
     extensions: [".ts", ".tsx", ".wasm", ".mjs", ".js", ".json"],
     plugins: [
       new TsconfigPathsPlugin({
-        configFile: path.join(__dirname, "./tsconfig.json"),
+        configFile: paths.tsconfig,
       }),
     ],
   },
@@ -94,6 +95,7 @@ module.exports = {
             loader: require.resolve("ts-loader"),
             options: {
               transpileOnly: true,
+              configFile: paths.tsconfig,
             },
           },
         ],

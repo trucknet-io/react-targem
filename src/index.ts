@@ -2,4 +2,4 @@ export * from "./TargemProvider";
 export { default } from "./TargemProvider";
 export * from "./T";
 export * from "./translators";
-export * from "./Gettext";
+export * from "./gettext";
