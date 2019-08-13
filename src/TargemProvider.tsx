@@ -11,64 +11,55 @@ import {
 } from "./utils";
 
 export interface WithLocale {
-  locale: string;
   direction: LocaleDirection;
+  locale: string;
   t: ReturnType<typeof t>;
   tn: ReturnType<typeof tn>;
+  changeLocale?(locale: string): void;
 }
 
-export type TargemProps = {
-  locale?: string;
-  direction?: LocaleDirection;
-  translations: TranslationsMap;
+export type TargemProviderProps<AddProps extends Object = {}> = {
   controlBodyDir?: boolean;
+  direction?: LocaleDirection;
+  locale?: string;
+  translations: TranslationsMap;
   setBodyDir?(dir: LocaleDirection): void;
-};
+} & AddProps;
+
+export type DefaultTargemProviderProps = Pick<
+  TargemProviderProps,
+  "controlBodyDir"
+>;
 
 const { Provider, Consumer } = React.createContext<WithLocale>({
-  locale: "en",
   direction: "ltr",
+  locale: "en",
   t: () => "",
   tn: () => "",
 });
 
 export { Provider as RawLocaleProvider };
 
-export class TargemProvider extends React.PureComponent<TargemProps> {
-  public static defaultProps: Partial<TargemProps> = {
+export class TargemProvider<AddProps> extends React.PureComponent<
+  TargemProviderProps<AddProps>
+> {
+  public static defaultProps: DefaultTargemProviderProps = {
     controlBodyDir: true,
   };
 
-  private getValue = memoizeOne(
-    (
-      propsTranslations: TranslationsMap,
-      propsLocale?: string,
-      propsDirection?: LocaleDirection,
-    ): WithLocale => {
-      const locale = this.getLocale(propsTranslations, propsLocale);
-      const direction = this.getDirection(locale, propsDirection);
-      const catalogs = this.getCatalogs(propsTranslations);
+  protected getValue = memoizeOne(this.getNewValue.bind(this));
 
-      return {
-        locale,
-        direction,
-        t: t(catalogs, locale),
-        tn: tn(catalogs, locale),
-      };
-    },
-  );
-
-  private getCatalogs = memoizeOne((translations: TranslationsMap) =>
+  protected getCatalogs = memoizeOne((translations: TranslationsMap) =>
     translationsToCatalogs(translations),
   );
 
-  private getLocale = memoizeOne(
+  protected getLocale = memoizeOne(
     (translations: TranslationsMap, locale?: string) => {
       return locale || this.getDefaultLocale(translations);
     },
   );
 
-  private getDefaultLocale = memoizeOne(
+  protected getDefaultLocale = memoizeOne(
     (translations: TranslationsMap): string => {
       const locales = this.getSupportedLocales(translations);
       if (typeof window !== "undefined" && window.navigator.language) {
@@ -80,13 +71,13 @@ export class TargemProvider extends React.PureComponent<TargemProps> {
     },
   );
 
-  private getSupportedLocales = memoizeOne(
+  protected getSupportedLocales = memoizeOne(
     (translations: TranslationsMap): string[] => {
       return Object.keys(translations);
     },
   );
 
-  private getDirection = memoizeOne(
+  protected getDirection = memoizeOne(
     (locale: string, direction?: LocaleDirection): LocaleDirection => {
       if (direction) {
         return direction;
@@ -95,34 +86,45 @@ export class TargemProvider extends React.PureComponent<TargemProps> {
     },
   );
 
-  private changeBodyDir = memoizeOne(
-    (
-      controlBodyDir: TargemProps["controlBodyDir"],
-      setBodyDir: TargemProps["setBodyDir"],
-      direction: LocaleDirection,
-    ) => {
-      if (!controlBodyDir) {
-        return;
-      }
+  protected changeBodyDir = memoizeOne((direction: LocaleDirection) => {
+    const { controlBodyDir, setBodyDir } = this.props;
 
-      if (setBodyDir) {
-        setBodyDir(direction);
-        return;
-      }
-
-      if (typeof document !== "undefined") {
-        document.body.dir = direction;
-      }
-    },
-  );
+    if (!controlBodyDir) {
+      return;
+    }
+    if (setBodyDir) {
+      setBodyDir(direction);
+      return;
+    }
+    if (typeof document !== "undefined") {
+      document.body.dir = direction;
+    }
+  });
 
   public render() {
-    const { children, ...rest } = this.props;
+    const { children, translations, locale, direction } = this.props;
 
-    const value = this.getValue(rest.translations, rest.locale, rest.direction);
-    this.changeBodyDir(rest.controlBodyDir, rest.setBodyDir, value.direction);
+    const value = this.getValue(translations, locale, direction);
+    this.changeBodyDir(value.direction);
 
     return <Provider value={value}>{children}</Provider>;
+  }
+
+  protected getNewValue(
+    propsTranslations: TranslationsMap,
+    propsLocale?: string,
+    propsDirection?: LocaleDirection,
+  ): WithLocale {
+    const locale = this.getLocale(propsTranslations, propsLocale);
+    const direction = this.getDirection(locale, propsDirection);
+    const catalogs = this.getCatalogs(propsTranslations);
+
+    return {
+      locale,
+      direction,
+      t: t(catalogs, locale),
+      tn: tn(catalogs, locale),
+    };
   }
 }
 
