@@ -3,7 +3,7 @@ import React from "react";
 
 import { TranslationsMap } from "./gettext";
 import { TargemProvider, WithLocale } from "./TargemProvider";
-import { LocaleDirection } from "./utils";
+import { LocaleDirection, warn } from "./utils";
 
 export type WithLocaleStateful = Required<WithLocale>;
 
@@ -41,21 +41,22 @@ export class TargemStatefulProvider extends React.PureComponent<
   TargemStatefulProviderProps,
   TargemStatefulProviderState
 > {
-  constructor(props: TargemStatefulProviderProps) {
-    super(props);
-
-    this.state = {
-      locale: props.defaultLocale,
-    };
-  }
+  public state: TargemStatefulProviderState = {};
 
   public render() {
-    const { children, controlBodyDir, setBodyDir, translations } = this.props;
+    const {
+      children,
+      controlBodyDir,
+      defaultLocale,
+      setBodyDir,
+      translations,
+    } = this.props;
 
     return (
       <TargemStatefulBase
         changeLocale={this.changeLocale}
         controlBodyDir={controlBodyDir}
+        defaultLocale={defaultLocale}
         locale={this.state.locale}
         setBodyDir={setBodyDir}
         translations={translations}>
@@ -65,6 +66,9 @@ export class TargemStatefulProvider extends React.PureComponent<
   }
 
   protected changeLocale = (locale: string) => {
+    if (!locale) {
+      warn(`Empty locale was passed to 'changeLocale()'!`);
+    }
     if (locale === this.state.locale) {
       return;
     }

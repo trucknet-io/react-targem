@@ -20,6 +20,7 @@ export interface WithLocale {
 
 export type TargemProviderProps<AddProps extends Object = {}> = {
   controlBodyDir?: boolean;
+  defaultLocale?: string;
   direction?: LocaleDirection;
   locale?: string;
   translations: TranslationsMap;
@@ -61,6 +62,9 @@ export class TargemProvider<AddProps> extends React.PureComponent<
 
   protected getDefaultLocale = memoizeOne(
     (translations: TranslationsMap): string => {
+      if (this.props.defaultLocale) {
+        return this.props.defaultLocale as string;
+      }
       const locales = this.getSupportedLocales(translations);
       if (typeof window !== "undefined" && window.navigator.language) {
         try {
