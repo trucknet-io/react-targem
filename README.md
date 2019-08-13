@@ -1,11 +1,9 @@
 # react-targem
 
+> Use Gettext localizations in your React app with an ease!
+
 [![Build Status](https://travis-ci.com/trucknet-io/react-targem.svg?branch=develop)](https://travis-ci.com/trucknet-io/react-targem)
 [![Coverage Status](https://coveralls.io/repos/github/trucknet-io/react-targem/badge.svg?branch=develop)](https://coveralls.io/github/trucknet-io/react-targem?branch=develop)
-
-**react-targem** is a React library for efficiently implementing Gettext localization in your app with little effort.
-
-It utilises [`node-gettext`](https://github.com/alexanderwallin/node-gettext) as translations tool, but this ought to be modularized in the future.
 
 ```js
 <T
