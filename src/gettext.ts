@@ -1,4 +1,4 @@
-import { DEBUG } from "./utils";
+import { warn } from "./utils";
 
 export type GettextTranslation = {
   msgid: string;
@@ -172,10 +172,4 @@ export function getPluralIndex(
     return pluralResult ? 1 : 0;
   }
   return pluralResult;
-}
-
-function warn(message: string) {
-  if (DEBUG) {
-    console.warn(message);
-  }
 }
