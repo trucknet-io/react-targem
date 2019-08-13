@@ -1,7 +1,9 @@
-const { basename, normalize } = require("path");
-const { readFile: readFileCb } = require("fs");
+const path = require("path");
+const { readFile: readFileCb, writeFile: writeFileCb } = require("fs");
 const { promisify } = require("util");
 const readFile = promisify(readFileCb);
+const writeFile = promisify(writeFileCb);
+const exec = promisify(require("child_process").exec);
 
 const kolor = require("kleur");
 const prettyBytes = require("pretty-bytes");
@@ -12,9 +14,11 @@ const pkg = require("../package.json");
 
 main();
 
+const SEPARATOR = "━".repeat(48);
+
 async function main() {
   const args = process.argv.splice(2);
-  const filePaths = [...args.map(normalize)];
+  const filePaths = [...args.map(path.normalize)];
   const fileMetadata = await Promise.all(
     filePaths.map(async (filePath) => {
       return {
@@ -28,7 +32,9 @@ async function main() {
     fileMetadata.map((metadata) => getSizeInfo(metadata.blob, metadata.path)),
   );
 
-  log(getFormatedOutput(pkg.name, output));
+  const formattedOutput = getFormatedOutput(pkg.name, output);
+  log(formattedOutput);
+  await saveSizesLock(output);
 }
 
 /**
@@ -43,8 +49,7 @@ function getFormatedOutput(pkgName, filesOutput) {
   return (
     kolor.blue(`${pkgName} bundle sizes: 📦`) +
     `\n${WHITE_SPACE}` +
-    readFile.name +
-    filesOutput.join(`\n${WHITE_SPACE}`)
+    filesOutput.map((o) => o.infoString).join(`\n${SEPARATOR}\n${WHITE_SPACE}`)
   );
 }
 
@@ -55,14 +60,17 @@ function getFormatedOutput(pkgName, filesOutput) {
  * @param {'br' | 'gz'} type
  * @param {boolean} raw
  */
-function formatSize(size, filename, type, raw) {
-  const pretty = raw ? `${size} B` : prettyBytes(size);
+function formatSize(size, filename, type, raw, noColor) {
   const color = size < 5000 ? "green" : size > 40000 ? "red" : "yellow";
-  const MAGIC_INDENTATION = type === "br" ? 13 : 10;
+  const MAGIC_INDENTATION = noColor || ["br", "gz"].includes(type) ? 13 : 10;
+  const pretty = raw ? `${size} B` : prettyBytes(size);
+  const prettyStr = noColor ? pretty : kolor[color](pretty);
+  const basename = path.basename(filename);
+  const nameStr = noColor ? basename : kolor.white(basename);
 
-  return `${" ".repeat(MAGIC_INDENTATION - pretty.length)}${kolor[color](
-    pretty,
-  )}: ${kolor.white(basename(filename))}.${type}`;
+  return `${" ".repeat(
+    MAGIC_INDENTATION - pretty.length,
+  )}${prettyStr}: ${nameStr}${type ? "." + type : ""}`;
 }
 
 /**
@@ -72,8 +80,27 @@ function formatSize(size, filename, type, raw) {
  * @param {boolean} [raw=false]
  */
 async function getSizeInfo(code, filename, raw = false) {
-  const isRaw = raw || code.length < 5000;
-  const gzip = formatSize(await gzipSize(code), filename, "gz", isRaw);
-  const brotli = formatSize(await brotliSize(code), filename, "br", isRaw);
-  return gzip + "\n" + brotli;
+  const codeSize = code.length;
+  const isRaw = raw || codeSize < 5000;
+  const rawSize = formatSize(codeSize, filename, "", isRaw, true);
+  const size = formatSize(codeSize, filename, "", isRaw);
+  const gzipCodeSize = await gzipSize(code);
+  const rawGzip = formatSize(gzipCodeSize, filename, "gz", isRaw, true);
+  const gzip = formatSize(gzipCodeSize, filename, "gz", isRaw);
+  const brotliCodeSize = await brotliSize(code);
+  const rawBrotli = formatSize(brotliCodeSize, filename, "br", isRaw, true);
+  const brotli = formatSize(brotliCodeSize, filename, "br", isRaw);
+
+  return {
+    rawString: `${rawSize}\n${rawGzip}\n${rawBrotli}`,
+    infoString: `${size}\n${gzip}\n${brotli}`,
+  };
+}
+
+async function saveSizesLock(output) {
+  const lockFilename = "./bundle-sizes.lock";
+  const filePath = path.join(process.cwd(), lockFilename);
+  const content = output.map((info) => info.rawString).join(`\n${SEPARATOR}\n`);
+  await writeFile(filePath, content);
+  await exec(`git add ${lockFilename}`);
 }

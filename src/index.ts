@@ -1,3 +1,5 @@
+"use strict";
+
 export * from "./TargemProvider";
 export { default } from "./TargemProvider";
 export * from "./TargemStatefulProvider";
