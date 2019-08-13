@@ -1,7 +1,7 @@
 # react-targem
 
-[![Build Status](https://travis-ci.org/goooseman/react-targem.svg?branch=develop)](https://travis-ci.org/goooseman/react-targem)
-[![Coverage Status](https://coveralls.io/repos/github/goooseman/react-targem/badge.svg?branch=develop)](https://coveralls.io/github/goooseman/react-targem?branch=develop)
+[![Build Status](https://travis-ci.com/trucknet-io/react-targem.svg?branch=master)](https://travis-ci.com/trucknet-io/react-targem)
+[![Coverage Status](https://coveralls.io/repos/github/trucknet-io/react-targem/badge.svg?branch=develop)](https://coveralls.io/github/trucknet-io/react-targem?branch=develop)
 
 **react-targem** is a React library for efficiently implementing Gettext localization in your app with little effort.
 
