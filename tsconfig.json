@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "dist/types",
+    "outDir": "dist/esm5",
+    "importHelpers": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
@@ -16,7 +20,7 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "target": "es5",
-    "module": "commonjs"
+    "module": "esnext"
   },
   "include": ["./src/**/*"]
 }

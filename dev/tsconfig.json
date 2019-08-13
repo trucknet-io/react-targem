@@ -2,6 +2,8 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "declaration": false,
+    "declarationMap": false,
+    "declarationDir": null,
     "typeRoots": ["../node_modules/@types", "./@types"],
     "baseUrl": ".",
     "paths": {
