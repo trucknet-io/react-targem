@@ -76,7 +76,12 @@ const plugins = /** @type {Plugin[]} */ ([
  */
 const CommonConfig = {
   input: {},
-  output: {},
+  output: {
+    exports: "named",
+    globals: {
+      react: "React",
+    },
+  },
   inlineDynamicImports: true,
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
   external,
@@ -89,6 +94,7 @@ const UMDconfig = {
   ...CommonConfig,
   input: resolve(PATHS.entry.esm5, "index.js"),
   output: {
+    ...CommonConfig.output,
     file: getOutputFileName(
       resolve(PATHS.bundles, "index.umd.js"),
       ifProduction(),
@@ -110,6 +116,7 @@ const FESMconfig = {
   input: resolve(PATHS.entry.esm2015, "index.js"),
   output: [
     {
+      ...CommonConfig.output,
       file: getOutputFileName(
         resolve(PATHS.bundles, "index.esm.js"),
         ifProduction(),

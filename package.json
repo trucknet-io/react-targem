@@ -23,9 +23,7 @@
   "author": "goooseman, alexeychikk",
   "license": "MIT",
   "scripts": {
-    "pretest": "npm run import-strings",
     "prestart": "npm run import-strings",
-    "prebuild": "npm run clean && npm run import-strings",
     "prelint": "npm run import-strings",
     "precommit": "npm run export-strings && git add dev/src/i18n/*.po* && lint-staged && npm run lint",
     "export-strings": "gettext-utils export-strings 'dev/src/**/{*.ts,*.tsx}' dev/src/i18n/template.pot --default-locale=en-GB",
@@ -36,23 +34,23 @@
     "lint:prettier": "prettier --write \"{src,dev/src,test}/**/*.ts*\"",
     "lint:tslint": "tslint -c tslint.json -p ./dev/tsconfig.json --fix",
     "start": "env-cmd development webpack-dev-server --config dev/webpack.config.js --hot",
+    "prebuild": "npm run clean",
     "build": "tsc && tsc --target es2018 --outDir dist/esm2015 && rollup -c config/rollup.config.js && rollup -c config/rollup.config.js --environment NODE_ENV:production",
-    "postbuild": "npm run size",
-    "size": "node config/file-size ./dist/bundles/index.umd.min.js ./dist/bundles/index.esm.min.js",
+    "postbuild": "npm run rename-mjs && npm run size",
+    "rename-mjs": "mv dist/bundles/index.esm.js dist/bundles/index.mjs && mv dist/bundles/index.esm.min.js dist/bundles/index.min.mjs ",
+    "size": "node config/file-size ./dist/bundles/index.min.mjs ./dist/bundles/index.umd.min.js",
     "serve": "ws --directory dev/www --port 3000 --spa index.html",
     "clean": "rimraf 'node_modules/.cache' '.awcache' 'dist'",
-    "prerelease": "npm run build && gettext-utils validate-strings",
+    "prerelease": "npm run build",
     "release": "./config/deployment/release.sh",
     "test": "jest --detectOpenHandles",
     "test:ci": "npm run test -- --coverage"
   },
   "dependencies": {
-    "lodash.get": "^4.4.2",
     "memoize-one": "^5.0.5"
   },
   "devDependencies": {
     "@types/jest": "^24.0.0",
-    "@types/lodash.get": "^4.4.6",
     "@types/memoize-one": "^4.1.1",
     "@types/node": "^12.7.1",
     "@types/react": "^16.9.1",

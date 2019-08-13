@@ -1,4 +1,3 @@
-import get from "lodash.get";
 import { DEBUG } from "./utils";
 
 export type GettextTranslation = {
@@ -68,7 +67,10 @@ export function getPluralFunction(
   locale: string,
   translations: ParsedPot,
 ): PluralFunction {
-  const pluralForms = get(translations, ["headers", "plural-forms"]);
+  const pluralForms =
+    translations &&
+    translations.headers &&
+    translations.headers["plural-forms"];
 
   if (!pluralForms) {
     warn(
@@ -119,7 +121,7 @@ export function translate(
     defaultTranslation = msgidPlural || msgid;
   }
 
-  translation = getTranslation(catalogs, locale, msgctxt, msgid);
+  translation = getTranslation(catalogs, locale, msgid, msgctxt);
 
   if (translation) {
     if (typeof count === "number") {
@@ -141,10 +143,17 @@ export function translate(
 export function getTranslation(
   catalogs: GettextCatalogs,
   locale: string,
-  msgctxt: string,
   msgid: string,
+  msgctxt?: string,
 ): GettextTranslation {
-  return get(catalogs, [locale, "translations", msgctxt || "", msgid]);
+  const context = msgctxt || "";
+  return (
+    catalogs &&
+    catalogs[locale] &&
+    catalogs[locale].translations &&
+    catalogs[locale].translations[context] &&
+    catalogs[locale].translations[context][msgid]
+  );
 }
 
 export function getPluralIndex(
@@ -152,7 +161,8 @@ export function getPluralIndex(
   locale: string,
   count: number,
 ): number {
-  const pluralFunc = get(catalogs, [locale, "pluralFunction"]);
+  const pluralFunc =
+    catalogs && catalogs[locale] && catalogs[locale].pluralFunction;
   if (!pluralFunc) {
     return 1;
   }

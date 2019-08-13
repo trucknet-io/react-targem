@@ -1,5 +1,3 @@
-import get from "lodash.get";
-
 export const RTL_LOCALES = [
   "ar",
   "arc",
@@ -17,6 +15,6 @@ export const RTL_LOCALES = [
 
 let DEBUG: boolean = false;
 if (typeof process !== "undefined") {
-  DEBUG = get(process, "env.NODE_ENV") !== "production";
+  DEBUG = !!(process && process.env && process.env.NODE_ENV !== "production");
 }
 export { DEBUG };
