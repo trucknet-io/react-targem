@@ -1,5 +1,3 @@
-export type LocaleDirection = "ltr" | "rtl";
-
 export const findLocale = (
   supportedLocales: string[],
   locale: string,

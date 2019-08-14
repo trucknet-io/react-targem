@@ -1,5 +1,6 @@
-import { GettextCatalogs, translate } from "./gettext";
-import { interpolateString, InterpolationScope } from "./interpolators";
+import { translate } from "./gettext";
+import { interpolateString } from "./interpolators";
+import { GettextCatalogs, InterpolationScope } from "./types";
 
 export const t = (catalogs: GettextCatalogs, locale: string) => (
   message: string,

@@ -2,17 +2,13 @@ import memoizeOne from "memoize-one";
 import React from "react";
 
 import {
+  LocaleDirection,
   t,
   tn,
   TranslationsMap,
   translationsToCatalogs,
 } from "../localization";
-import {
-  createContextHOC,
-  findLocale,
-  LocaleDirection,
-  RTL_LOCALES,
-} from "../utils";
+import { createContextHOC, findLocale, RTL_LOCALES } from "../utils";
 
 export interface WithLocale {
   direction: LocaleDirection;

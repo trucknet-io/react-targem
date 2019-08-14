@@ -1,48 +1,12 @@
 import { warn } from "../utils";
-
-export type GettextTranslation = {
-  msgid: string;
-  msgid_plural?: string;
-  msgctxt?: string;
-  msgstr: string[];
-  comments?: {
-    reference: string;
-  };
-};
-
-export type PotsHeaders = {
-  "project-id-version"?: string;
-  "content-type"?: string;
-  "pot-creation-date"?: string;
-  "content-transfer-encoding"?: string;
-  "plural-forms"?: string;
-  "po-revision-date"?: string;
-  "language-team"?: string;
-  "mime-version"?: string;
-  "x-generator"?: string;
-  "last-translator"?: string;
-  language?: string;
-};
-
-export type ParsedPot = {
-  charset: string;
-  headers: PotsHeaders;
-  translations: { [msgctxt: string]: { [msgid: string]: GettextTranslation } };
-};
-
-export type TranslationsMap = {
-  [locale: string]: ParsedPot;
-};
-
-export type PluralFunction = (n: number) => boolean | number;
-
-export type GettextCatalog = ParsedPot & {
-  pluralFunction: PluralFunction;
-};
-
-export type GettextCatalogs = {
-  [locale: string]: GettextCatalog;
-};
+import {
+  GettextCatalog,
+  GettextCatalogs,
+  GettextTranslation,
+  ParsedPot,
+  PluralFunction,
+  TranslationsMap,
+} from "./types";
 
 export function translationsToCatalogs(
   translations: TranslationsMap,

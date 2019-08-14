@@ -1,3 +1,5 @@
+import { InterpolationScope } from "./types";
+
 // Note that [^] is used rather than . to match any character. This
 // is because . doesn't span over multiple lines, whereas [^] does.
 const variableRegex = /(\{\{\s[^]+?(?=\s\}\})\s\}\})/g;
@@ -8,10 +10,6 @@ const variableRegex = /(\{\{\s[^]+?(?=\s\}\})\s\}\})/g;
 export function isTemplateVariable(str: string): boolean {
   return new RegExp(variableRegex).test(str);
 }
-
-export type InterpolationScope = {
-  [key: string]: string | number | boolean | undefined;
-};
 
 /**
  * Interpolates a string, replacing template variables with values

@@ -1,8 +1,8 @@
 import memoizeOne from "memoize-one";
 import React from "react";
 
-import { TranslationsMap } from "../localization";
-import { LocaleDirection, warn } from "../utils";
+import { LocaleDirection, TranslationsMap } from "../localization";
+import { warn } from "../utils";
 import { TargemProvider, WithLocale } from "./TargemProvider";
 
 export type WithLocaleStateful = Required<WithLocale>;

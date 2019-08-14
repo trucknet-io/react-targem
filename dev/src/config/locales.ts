@@ -1,4 +1,4 @@
-export type LocaleDirection = "ltr" | "rtl";
+import { LocaleDirection } from "@lib";
 
 export type Locale = {
   code: string;
