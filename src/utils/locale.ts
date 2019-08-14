@@ -18,8 +18,4 @@ export const findLocale = (
   throw new LocaleNotSupportedError(`Locale ${locale} was not found`);
 };
 
-export const getDateFnsLocale = (locale: string) => {
-  return locale.replace("-", "");
-};
-
 export class LocaleNotSupportedError extends Error {}

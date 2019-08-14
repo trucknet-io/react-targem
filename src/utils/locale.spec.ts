@@ -1,4 +1,4 @@
-import { findLocale, getDateFnsLocale } from "./locale";
+import { findLocale } from "./locale";
 
 const supportedLocales = ["en-GB", "en-AU"];
 
@@ -35,14 +35,5 @@ describe("findLocale", () => {
 
   it("Should throw LocaleNotSupported error if not found", () => {
     expect(() => findLocale(supportedLocales, "foo")).toThrow();
-  });
-});
-
-describe("getDateFnsLocale", () => {
-  it("Should output ru for ru", () => {
-    expect(getDateFnsLocale("ru")).toBe("ru");
-  });
-  it("Should output enGB for en-GB", () => {
-    expect(getDateFnsLocale("en-GB")).toBe("enGB");
   });
 });

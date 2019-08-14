@@ -1,8 +1,8 @@
 import React from "react";
 
-import { InterpolationScope } from "./interpolators";
+import { InterpolationScope } from "../localization";
+import { ContextHOC } from "../utils";
 import { withLocale, WithLocale } from "./TargemProvider";
-import { ContextHOC } from "./utils";
 
 export type TProps = {
   asString?: boolean;

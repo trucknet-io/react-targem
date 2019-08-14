@@ -1,4 +1,4 @@
-import { warn } from "./utils";
+import { warn } from "../utils";
 
 export type GettextTranslation = {
   msgid: string;

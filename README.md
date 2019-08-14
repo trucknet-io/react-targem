@@ -214,13 +214,13 @@ react-targem makes it possible to change locale and have all the application's t
 
 <!--size-start-->
 ```
-      5.56 kB: index.min.mjs
+      5.57 kB: index.min.mjs
       2.15 kB: index.min.mjs.gz
-      1.92 kB: index.min.mjs.br
+      1.93 kB: index.min.mjs.br
 
-      6.39 kB: index.umd.min.js
-      2.44 kB: index.umd.min.js.gz
-       2.2 kB: index.umd.min.js.br
+      6.43 kB: index.umd.min.js
+      2.46 kB: index.umd.min.js.gz
+      2.22 kB: index.umd.min.js.br
 ```
 <!--size-end-->
 
