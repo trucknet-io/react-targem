@@ -1,8 +1,12 @@
 import React from "react";
 
-export type ContextHOC<Context extends object> = <P extends Context>(
-  Component: React.ComponentType<P>,
-) => React.ComponentType<Omit<P, keyof Context> & Partial<Context>>;
+export type ContextHOC<
+  Context extends object,
+  P extends object,
+  Cmp = never
+> = <Comp = Cmp extends never ? React.ComponentType<Context & P> : Cmp>(
+  Component: Comp,
+) => React.ComponentType<P>;
 
 export const createContextHOC = <Context extends object>(
   Consumer: React.Consumer<Context>,

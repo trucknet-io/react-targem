@@ -2,6 +2,7 @@ import React from "react";
 
 import { InterpolationScope } from "./interpolators";
 import { withLocale, WithLocale } from "./TargemProvider";
+import { ContextHOC } from "./utils";
 
 export type TProps = {
   asString?: boolean;
@@ -38,4 +39,6 @@ export class TBase extends React.PureComponent<WithLocale & TProps> {
   }
 }
 
-export const T = withLocale(TBase as React.ComponentType<WithLocale & TProps>);
+// This type cast is needed because TProps type is declared in such
+// way that it requires either `children` or `message` props to be passed.
+export const T = (withLocale as ContextHOC<WithLocale, TProps, TBase>)(TBase);

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Mon Aug 12 2019 20:15:31 GMT+0300 (Eastern European "
+"POT-Creation-Date: Wed Aug 14 2019 17:13:42 GMT+0300 (Eastern European "
 "Summer Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? 2 "
@@ -23,6 +23,11 @@ msgid "Hello, {{ name }}!"
 msgstr ""
 
 #: dev/src/layouts/Body.tsx:24
+msgid "There is one line of code"
+msgid_plural "There are {{ count }} lines of code"
+msgstr[0] ""
+msgstr[1] ""
+
 #: dev/src/layouts/Body.tsx:33
 msgid "There is {{ count }} line of code"
 msgid_plural "There are {{ count }} lines of code"

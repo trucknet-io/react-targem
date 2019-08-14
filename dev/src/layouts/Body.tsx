@@ -11,7 +11,7 @@ class Body extends React.PureComponent {
         <Inner />
 
         <h1>
-          Simple: <T message="Hello, World!" />
+          Simple: <T>Hello, World!</T>
         </h1>
 
         <h1>
@@ -22,7 +22,7 @@ class Body extends React.PureComponent {
         <h1>
           Plural `count=1`:{" "}
           <T
-            message="There is {{ count }} line of code"
+            message="There is one line of code"
             messagePlural="There are {{ count }} lines of code"
             count={1}
           />
