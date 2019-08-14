@@ -11,7 +11,7 @@ export const createContextHOC = <Context extends object>(
     Component: React.ComponentType<P>,
   ) => {
     return class WithContextHOC extends React.Component<
-      Omit<P, keyof Context> & Partial<Context>
+      Omit<P, keyof Context>
     > {
       public render() {
         return <Consumer>{this.renderComponent}</Consumer>;
