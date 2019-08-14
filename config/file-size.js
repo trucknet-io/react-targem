@@ -14,8 +14,6 @@ const pkg = require("../package.json");
 
 main();
 
-const SEPARATOR = "━".repeat(48);
-
 async function main() {
   const args = process.argv.splice(2);
   const filePaths = [...args.map(path.normalize)];
@@ -49,7 +47,7 @@ function getFormatedOutput(pkgName, filesOutput) {
   return (
     kolor.blue(`${pkgName} bundle sizes: 📦`) +
     `\n${WHITE_SPACE}` +
-    filesOutput.map((o) => o.infoString).join(`\n${SEPARATOR}\n${WHITE_SPACE}`)
+    filesOutput.map((o) => o.infoString).join(`\n\n${WHITE_SPACE}`)
   );
 }
 
@@ -99,8 +97,21 @@ async function getSizeInfo(code, filename, raw = false) {
 
 async function saveSizesLock(output) {
   const lockFilename = "./bundle-sizes.lock";
-  const filePath = path.join(process.cwd(), lockFilename);
-  const content = output.map((info) => info.rawString).join(`\n${SEPARATOR}\n`);
-  await writeFile(filePath, content);
-  await exec(`git add ${lockFilename}`);
+  const readmeFilename = "./README.md";
+  const lockPath = path.join(process.cwd(), lockFilename);
+
+  const bundleSizes = output.map((info) => info.rawString).join(`\n\n`);
+
+  const readmePath = path.join(process.cwd(), readmeFilename);
+  let readmeContent = (await readFile(readmePath)).toString();
+  readmeContent = readmeContent.replace(
+    /<!--size-start-->(.|\n|\r|\t)*<!--size-end-->/gim,
+    `<!--size-start-->\n\`\`\`\n${bundleSizes}\n\`\`\`\n<!--size-end-->`,
+  );
+
+  await Promise.all([
+    writeFile(lockPath, bundleSizes),
+    writeFile(readmePath, readmeContent),
+  ]);
+  await exec(`git add ${lockFilename} ${readmeFilename}`);
 }

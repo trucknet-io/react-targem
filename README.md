@@ -28,6 +28,7 @@
     - [`<T />`](#t)
     - [`withLocale(Component)`](#withlocalecomponent)
     - [Locale switching](#locale-switching)
+  - [Size](#size)
   - [See also](#see-also)
 
 ## Features
@@ -208,6 +209,20 @@ export default withLocale(PotatoNotification);
 react-targem makes it possible to change locale and have all the application's translations instantly update to those of the new locale. `<TargemProvider>` will trigger a re-render of all `<T>` components and components wrapped in `withLocale()` whenever its `locale` or `translations` props change.
 
 **Note:** For performance reasons, and in favour of immutability, this check is done using shallow equality, which means you need to pass an entirely new object reference as `translations` for it to trigger the re-render. If this is an issue for you, simply make sure you create a new object when you get new translations.
+
+## Size
+
+<!--size-start-->
+```
+      5.56 kB: index.min.mjs
+      2.15 kB: index.min.mjs.gz
+      1.92 kB: index.min.mjs.br
+
+      6.39 kB: index.umd.min.js
+      2.44 kB: index.umd.min.js.gz
+       2.2 kB: index.umd.min.js.br
+```
+<!--size-end-->
 
 ## See also
 
