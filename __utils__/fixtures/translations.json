@@ -56,6 +56,20 @@
             "There is one line of code",
             "There are {{ count }} lines of code"
           ]
+        },
+        "I love you, {{ name }}": {
+          "msgid": "I love you, {{ name }}",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:56" },
+          "msgstr": ["I love you, {{ name }}"]
+        },
+        "Dear, {{ name }}. You have one unread message": {
+          "msgid": "Dear, {{ name }}. You have one unread message",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:56" },
+          "msgid_plural": "Dear, {{ name }}. You have {{ count }} unread messages",
+          "msgstr": [
+            "Dear, {{ name }}. You have one unread message",
+            "Dear, {{ name }}. You have {{ count }} unread messages"
+          ]
         }
       }
     }
@@ -111,6 +125,11 @@
           "comments": { "reference": "dev/src/layouts/Body.tsx:24" },
           "msgid_plural": "There are {{ count }} lines of code",
           "msgstr": ["יש שורת קוד אחת", "יש {{ count }} שורות קוד"]
+        },
+        "I love you, {{ name }}": {
+          "msgid": "I love you, {{ name }}",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:56" },
+          "msgstr": ["אני אוהב אותך, {{name}}"]
         }
       }
     }
@@ -172,6 +191,21 @@
           "msgstr": [
             "Тут есть одна строчка кода",
             "Здесь {{ count }} строчек кода"
+          ]
+        },
+        "I love you, {{ name }}": {
+          "msgid": "I love you, {{ name }}",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:56" },
+          "msgstr": ["Я люблю тебя, {{ name }}"]
+        },
+        "Dear, {{ name }}. You have one unread message": {
+          "msgid": "Dear, {{ name }}. You have one unread message",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:56" },
+          "msgid_plural": "Dear, {{ name }}. You have {{ count }} unread messages",
+          "msgstr": [
+            "Дорогой {{ name }}. У вас одно непрочитанное сообщение.",
+            "Дорогой {{ name }}. У вас {{ count }} непрочитанных сообщения.",
+            "Дорогой {{ name }}. У вас {{ count }} непрочитанных сообщений."
           ]
         }
       }
