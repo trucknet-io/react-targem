@@ -100,7 +100,7 @@
         "Hello, World!": {
           "msgid": "Hello, World!",
           "comments": { "reference": "dev/src/layouts/Body.tsx:14" },
-          "msgstr": [""]
+          "msgstr": ["שלום עולם!"]
         },
         "Hello, {{ name }}!": {
           "msgid": "Hello, {{ name }}!",
