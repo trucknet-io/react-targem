@@ -1,0 +1,38 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: react-targem 0.0.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"POT-Creation-Date: Wed Aug 14 2019 17:13:42 GMT+0300 (Eastern European "
+"Summer Time)\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: dev/src/layouts/Body.tsx:14
+msgid "Hello, World!"
+msgstr ""
+
+#: dev/src/layouts/Body.tsx:19
+msgid "Hello, {{ name }}!"
+msgstr ""
+
+#: dev/src/layouts/Body.tsx:24
+msgid "There is one line of code"
+msgid_plural "There are {{ count }} lines of code"
+msgstr[0] ""
+msgstr[1] ""
+
+#: dev/src/layouts/Body.tsx:33
+msgid "There is {{ count }} line of code"
+msgid_plural "There are {{ count }} lines of code"
+msgstr[0] ""
+msgstr[1] ""
+
+#: dev/src/layouts/Inner.tsx:12
+msgid "Current locale"
+msgstr ""
+
+#: dev/src/layouts/Inner.tsx:17
+msgid "There is {{ count }} button"
+msgid_plural "There are {{ count }} buttons"
+msgstr[0] ""
+msgstr[1] ""
