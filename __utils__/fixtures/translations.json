@@ -1,0 +1,180 @@
+{
+  "en-GB": {
+    "charset": "utf-8",
+    "headers": {
+      "content-type": "text/plain; charset=utf-8",
+      "pot-creation-date": "Wed Aug 14 2019 17:13:42 GMT+0300 (Eastern European Summer Time)",
+      "content-transfer-encoding": "8bit",
+      "plural-forms": "nplurals=2; plural=(n != 1);",
+      "project-id-version": "react-targem 0.0.0",
+      "po-revision-date": "",
+      "language-team": "",
+      "mime-version": "1.0",
+      "x-generator": "Poedit 2.2.1",
+      "last-translator": "",
+      "language": "en-GB"
+    },
+    "translations": {
+      "": {
+        "": {
+          "msgid": "",
+          "msgstr": [
+            "Content-Type: text/plain; charset=utf-8\nPOT-Creation-Date: Wed Aug 14 2019 17:13:42 GMT+0300 (Eastern European Summer Time)\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\nProject-Id-Version: react-targem 0.0.0\nPO-Revision-Date: \nLanguage-Team: \nMIME-Version: 1.0\nX-Generator: Poedit 2.2.1\nLast-Translator: \nLanguage: en-GB\n"
+          ]
+        },
+        "Hello, World!": {
+          "msgid": "Hello, World!",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:14" },
+          "msgstr": ["Hello, World!"]
+        },
+        "Hello, {{ name }}!": {
+          "msgid": "Hello, {{ name }}!",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:19" },
+          "msgstr": ["Hello, {{ name }}!"]
+        },
+        "Current locale": {
+          "msgid": "Current locale",
+          "comments": { "reference": "dev/src/layouts/Inner.tsx:12" },
+          "msgstr": ["Current locale"]
+        },
+        "There is {{ count }} button": {
+          "msgid": "There is {{ count }} button",
+          "comments": { "reference": "dev/src/layouts/Inner.tsx:17" },
+          "msgid_plural": "There are {{ count }} buttons",
+          "msgstr": [
+            "There is {{ count }} button",
+            "There are {{ count }} buttons"
+          ]
+        }
+      },
+      "someContext": {
+        "There is one line of code": {
+          "msgid": "There is one line of code",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:24" },
+          "msgid_plural": "There are {{ count }} lines of code",
+          "msgstr": [
+            "There is one line of code",
+            "There are {{ count }} lines of code"
+          ]
+        }
+      }
+    }
+  },
+  "he": {
+    "charset": "utf-8",
+    "headers": {
+      "content-type": "text/plain; charset=utf-8",
+      "pot-creation-date": "Wed Aug 14 2019 17:13:42 GMT+0300 (Eastern European Summer Time)",
+      "content-transfer-encoding": "8bit",
+      "plural-forms": "nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? 2 : 3);",
+      "project-id-version": "react-targem 0.0.0",
+      "po-revision-date": "",
+      "language-team": "",
+      "mime-version": "1.0",
+      "x-generator": "Poedit 2.2.1",
+      "last-translator": "",
+      "language": "he"
+    },
+    "translations": {
+      "": {
+        "": {
+          "msgid": "",
+          "msgstr": [
+            "Content-Type: text/plain; charset=utf-8\nPOT-Creation-Date: Wed Aug 14 2019 17:13:42 GMT+0300 (Eastern European Summer Time)\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? 2 : 3);\nProject-Id-Version: react-targem 0.0.0\nPO-Revision-Date: \nLanguage-Team: \nMIME-Version: 1.0\nX-Generator: Poedit 2.2.1\nLast-Translator: \nLanguage: he\n"
+          ]
+        },
+        "Hello, World!": {
+          "msgid": "Hello, World!",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:14" },
+          "msgstr": [""]
+        },
+        "Hello, {{ name }}!": {
+          "msgid": "Hello, {{ name }}!",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:19" },
+          "msgstr": [""]
+        },
+        "Current locale": {
+          "msgid": "Current locale",
+          "comments": { "reference": "dev/src/layouts/Inner.tsx:12" },
+          "msgstr": [""]
+        },
+        "There is {{ count }} button": {
+          "msgid": "There is {{ count }} button",
+          "comments": { "reference": "dev/src/layouts/Inner.tsx:17" },
+          "msgid_plural": "There are {{ count }} buttons",
+          "msgstr": ["", ""]
+        }
+      },
+      "someContext": {
+        "There is one line of code": {
+          "msgid": "There is one line of code",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:24" },
+          "msgid_plural": "There are {{ count }} lines of code",
+          "msgstr": ["יש שורת קוד אחת", "יש {{ count }} שורות קוד"]
+        }
+      }
+    }
+  },
+  "ru": {
+    "charset": "utf-8",
+    "headers": {
+      "content-type": "text/plain; charset=utf-8",
+      "pot-creation-date": "Wed Aug 14 2019 17:13:42 GMT+0300 (Eastern European Summer Time)",
+      "content-transfer-encoding": "8bit",
+      "plural-forms": "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);",
+      "project-id-version": "react-targem 0.0.0",
+      "po-revision-date": "",
+      "language-team": "",
+      "mime-version": "1.0",
+      "x-generator": "Poedit 2.2.1",
+      "last-translator": "",
+      "language": "ru"
+    },
+    "translations": {
+      "": {
+        "": {
+          "msgid": "",
+          "msgstr": [
+            "Content-Type: text/plain; charset=utf-8\nPOT-Creation-Date: Wed Aug 14 2019 17:13:42 GMT+0300 (Eastern European Summer Time)\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\nProject-Id-Version: react-targem 0.0.0\nPO-Revision-Date: \nLanguage-Team: \nMIME-Version: 1.0\nX-Generator: Poedit 2.2.1\nLast-Translator: \nLanguage: ru\n"
+          ]
+        },
+        "Hello, World!": {
+          "msgid": "Hello, World!",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:14" },
+          "msgstr": ["Привет, Мир!"]
+        },
+        "Hello, {{ name }}!": {
+          "msgid": "Hello, {{ name }}!",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:19" },
+          "msgstr": ["Здарова, {{ name }}!"]
+        },
+        "Current locale": {
+          "msgid": "Current locale",
+          "comments": { "reference": "dev/src/layouts/Inner.tsx:12" },
+          "msgstr": ["Текущая локаль"]
+        },
+        "There is {{ count }} button": {
+          "msgid": "There is {{ count }} button",
+          "comments": { "reference": "dev/src/layouts/Inner.tsx:17" },
+          "msgid_plural": "There are {{ count }} buttons",
+          "msgstr": [
+            "{{ count }} кнопка",
+            "{{ count }} кнопки",
+            "{{ count }} кнопок"
+          ]
+        }
+      },
+      "someContext": {
+        "There is one line of code": {
+          "msgid": "There is one line of code",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:24" },
+          "msgid_plural": "There are {{ count }} lines of code",
+          "msgstr": [
+            "Тут есть одна строчка кода",
+            "Здесь {{ count }} строчек кода"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -8,8 +8,7 @@
       "@lib": ["../src"],
       "@lib/*": ["../src/*"],
       "@test-utils/*": ["../__utils__/*"]
-    },
-    "isolatedModules": true
+    }
   },
   "include": ["../src/**/*", "./src/**/*", "../__utils__/**/*"]
 }

@@ -27,45 +27,6 @@ export function potToCatalog(locale: string, pot: ParsedPot): GettextCatalog {
   };
 }
 
-export function getPluralFunction(
-  locale: string,
-  translations: ParsedPot,
-): PluralFunction {
-  const pluralForms =
-    translations &&
-    translations.headers &&
-    translations.headers["plural-forms"];
-
-  if (!pluralForms) {
-    warn(
-      `Translations for locale ${locale} don't contain "plural-forms" in headers`,
-    );
-    return () => 1;
-  }
-
-  const pluralExecRes = /plural=(.+?)(;|\n|\r)/gim.exec(pluralForms);
-  if (!pluralExecRes || !pluralExecRes[1]) {
-    warn(
-      `Translations for locale ${locale} have invalid "plural-forms" in headers`,
-    );
-    return () => 1;
-  }
-
-  const pluralString = pluralExecRes[1];
-  if (!/^[+\-*/%0-9(). n!=?:<>&|]+$/gim.test(pluralString)) {
-    warn(
-      `Translations for locale ${locale} have invalid "plural-forms" in headers`,
-    );
-    return () => 1;
-  }
-
-  // This new Function call is safe because the checks above ensure
-  // plural expression only contains arithmetic and logical operators,
-  // numbers and 'n' char
-  // tslint:disable-next-line: function-constructor no-function-constructor-with-string-args
-  return new Function("n", `return (${pluralString})`) as PluralFunction;
-}
-
 export function translate(
   catalogs: GettextCatalogs,
   locale: string,
@@ -120,6 +81,50 @@ export function getTranslation(
   );
 }
 
+// This export is needed because when you run `npm run test:ci`
+// Jest injects coverage lines into each function so
+// comparing two functions with .toString() becomes impossible
+export const defaultPluralFunction = () => 0;
+
+export function getPluralFunction(
+  locale: string,
+  translations: ParsedPot,
+): PluralFunction {
+  const pluralForms =
+    translations &&
+    translations.headers &&
+    translations.headers["plural-forms"];
+
+  if (!pluralForms) {
+    warn(
+      `Translations for locale ${locale} don't contain "plural-forms" in headers`,
+    );
+    return defaultPluralFunction;
+  }
+
+  const pluralExecRes = /plural=(.+?)(;|\n|\r|$)/gim.exec(pluralForms);
+  if (!pluralExecRes || !pluralExecRes[1]) {
+    warn(
+      `Translations for locale ${locale} have invalid "plural-forms" in headers`,
+    );
+    return defaultPluralFunction;
+  }
+
+  const pluralString = pluralExecRes[1];
+  if (!/^[+\-*/%0-9(). n!=?:<>&|]+$/gim.test(pluralString)) {
+    warn(
+      `Translations for locale ${locale} have invalid "plural-forms" in headers`,
+    );
+    return defaultPluralFunction;
+  }
+
+  // This new Function call is safe because the checks above ensure
+  // plural expression only contains arithmetic and logical operators,
+  // numbers and 'n' char
+  // tslint:disable-next-line: function-constructor no-function-constructor-with-string-args
+  return new Function("n", `return (${pluralString})`) as PluralFunction;
+}
+
 export function getPluralIndex(
   catalogs: GettextCatalogs,
   locale: string,
@@ -128,7 +133,7 @@ export function getPluralIndex(
   const pluralFunc =
     catalogs && catalogs[locale] && catalogs[locale].pluralFunction;
   if (!pluralFunc) {
-    return 1;
+    return 0;
   }
 
   const pluralResult = pluralFunc(count);
