@@ -8,7 +8,7 @@ import {
   TranslationsMap,
   translationsToCatalogs,
 } from "../localization";
-import { createContextHOC, findLocale, RTL_LOCALES } from "../utils";
+import { createContextHOC, getBrowserLocale, RTL_LOCALES } from "../utils";
 
 export interface WithLocale {
   direction: LocaleDirection;
@@ -66,12 +66,7 @@ export class TargemProvider<AddProps> extends React.PureComponent<
         return this.props.defaultLocale as string;
       }
       const locales = this.getSupportedLocales(translations);
-      if (typeof window !== "undefined" && window.navigator.language) {
-        try {
-          return findLocale(locales, window.navigator.language);
-        } catch (_) {}
-      }
-      return locales[0] || "en";
+      return getBrowserLocale(locales, this.props.defaultLocale);
     },
   );
 

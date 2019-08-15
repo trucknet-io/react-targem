@@ -1,7 +1,4 @@
-export const findLocale = (
-  supportedLocales: string[],
-  locale: string,
-): string => {
+export function findLocale(supportedLocales: string[], locale: string): string {
   if (supportedLocales.includes(locale)) {
     return locale;
   }
@@ -14,6 +11,18 @@ export const findLocale = (
     }
   }
   throw new LocaleNotSupportedError(`Locale ${locale} was not found`);
-};
+}
 
 export class LocaleNotSupportedError extends Error {}
+
+export function getBrowserLocale(
+  supportedLocales: string[],
+  fallbackLocale?: string,
+) {
+  if (typeof window !== "undefined" && window.navigator.language) {
+    try {
+      return findLocale(supportedLocales, window.navigator.language);
+    } catch (_) {}
+  }
+  return supportedLocales[0] || fallbackLocale || "en";
+}
