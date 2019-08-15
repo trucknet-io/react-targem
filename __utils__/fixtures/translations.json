@@ -110,7 +110,7 @@
         "Current locale": {
           "msgid": "Current locale",
           "comments": { "reference": "dev/src/layouts/Inner.tsx:12" },
-          "msgstr": [""]
+          "msgstr": ["אזור נוכחי"]
         },
         "There is {{ count }} button": {
           "msgid": "There is {{ count }} button",
@@ -129,7 +129,18 @@
         "I love you, {{ name }}": {
           "msgid": "I love you, {{ name }}",
           "comments": { "reference": "dev/src/layouts/Body.tsx:56" },
-          "msgstr": ["אני אוהב אותך, {{name}}"]
+          "msgstr": ["אני אוהב אותך, {{ name }}"]
+        },
+        "Dear, {{ name }}. You have one unread message": {
+          "msgid": "Dear, {{ name }}. You have one unread message",
+          "comments": { "reference": "dev/src/layouts/Body.tsx:56" },
+          "msgid_plural": "Dear, {{ name }}. You have {{ count }} unread messages",
+          "msgstr": [
+            "יקר, {{ name }}. יש לך הודעה אחת שלא נקראה",
+            "",
+            "",
+            "יקר, {{ name }}. יש לך {{ count }} הודעות שלא נקראו"
+          ]
         }
       }
     }

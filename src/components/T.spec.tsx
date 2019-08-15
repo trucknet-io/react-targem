@@ -3,7 +3,7 @@ import * as React from "react";
 
 import translationsJson from "@test-utils/fixtures/translations.json";
 import { T } from "./T";
-import TargemProvider from "./TargemProvider";
+import { TargemProvider } from "./TargemProvider";
 import { TargemStatefulProvider } from "./TargemStatefulProvider";
 
 describe("<T />", () => {
