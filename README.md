@@ -50,7 +50,7 @@ npm i -S react-targem
 ## Usage
 
 Below is an example app showing how to translate some text.  
-See TypeScript example [here](./dev/src/layouts).
+_See **TypeScript** example [here](./dev/src/layouts) or better take a look at the tests: [T.spec.tsx](./src/components/T.spec.tsx), [TargemProvider.spec.tsx](./src/components/TargemProvider.spec.tsx), [TargemStatefulProvider.spec.tsx](./src/components/TargemStatefulProvider.spec.tsx)._
 
 ```jsx
 import React from 'react'
