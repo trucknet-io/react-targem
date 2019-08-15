@@ -114,7 +114,7 @@ Creates localization context for all child `<T />` components. This context can 
 
 **Props:**
 
-- `translations` **_(required: Object)_** – Translations as a map of `{ [locale: string]: ParsedPot }` where [ParsedPot](./src/gettext.ts#L27) is an output of `po()` function call from [gettext-parser](https://github.com/smhg/gettext-parser). See also [gettext-utils](https://github.com/goooseman/gettext-utils).
+- `translations` **_(required: Object)_** – Translations as a map of `{ [locale: string]: ParsedPot }` where [ParsedPot](./src/localization/types.ts#L27) is an output of `po()` function call from [gettext-parser](https://github.com/smhg/gettext-parser). See also [gettext-utils](https://github.com/goooseman/gettext-utils).
 - `locale` _(optional: string)_ – Current locale. If you don't pass this prop then `defaultLocale` is used (see below).
 - `defaultLocale` _(optional: string)_ – Locale that is used when `locale` prop is empty. If you don't pass `defaultLocale` then the first locale from `translations` is used or `"en"` if `translations === {}`.
 - `direction` _(optional: "ltr" | "rtl")_ – Current text direction. When omitted direction is resolved based on the current `locale`. There is a [predefined list](./src/utils/constants.ts) of 12 locale codes for which react-targem knows that they are `"rtl"`.
@@ -199,7 +199,7 @@ function Head({ locale, t, tn }) {
   );
 }
 
-export default withLocale(PotatoNotification);
+export default withLocale(Head);
 ```
 
 ---
@@ -213,15 +213,17 @@ react-targem makes it possible to change locale and have all the application's t
 ## Size
 
 <!--size-start-->
-```
-      5.57 kB: index.min.mjs
-      2.15 kB: index.min.mjs.gz
-      1.93 kB: index.min.mjs.br
 
-      6.43 kB: index.umd.min.js
-      2.46 kB: index.umd.min.js.gz
-      2.22 kB: index.umd.min.js.br
 ```
+      5.71 kB: index.min.mjs
+      2.18 kB: index.min.mjs.gz
+      1.95 kB: index.min.mjs.br
+
+      6.44 kB: index.umd.min.js
+      2.48 kB: index.umd.min.js.gz
+      2.25 kB: index.umd.min.js.br
+```
+
 <!--size-end-->
 
 ## See also
