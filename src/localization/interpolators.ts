@@ -1,16 +1,5 @@
 import { InterpolationScope, NumberFormatter } from "./types";
 
-// Note that [^] is used rather than . to match any character. This
-// is because . doesn't span over multiple lines, whereas [^] does.
-const variableRegex = /(\{\{\s[^]+?(?=\s\}\})\s\}\})/g;
-
-/**
- * Returns whether a string is a template variable.
- */
-export function isTemplateVariable(str: string): boolean {
-  return new RegExp(variableRegex).test(str);
-}
-
 /**
  * Interpolates a string, replacing template variables with values
  * provided in the scope.
@@ -56,7 +45,18 @@ export function createInterpolatorWithNumberFormat(locale: string) {
   };
 }
 
-export function getNumberFormatter(locale: string): NumberFormatter {
+// Note that [^] is used rather than . to match any character. This
+// is because . doesn't span over multiple lines, whereas [^] does.
+const variableRegex = /(\{\{\s[^]+?(?=\s\}\})\s\}\})/g;
+
+/**
+ * Returns whether a string is a template variable.
+ */
+function isTemplateVariable(str: string): boolean {
+  return new RegExp(variableRegex).test(str);
+}
+
+function getNumberFormatter(locale: string): NumberFormatter {
   if (typeof Intl === "undefined") {
     return (n: number) => n.toLocaleString(locale);
   }
@@ -64,7 +64,7 @@ export function getNumberFormatter(locale: string): NumberFormatter {
   return (n: number) => numberFormat.format(n);
 }
 
-export function formatScopeNumbers(
+function formatScopeNumbers(
   formatter: NumberFormatter,
   scope: InterpolationScope,
 ): InterpolationScope {
