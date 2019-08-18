@@ -87,7 +87,16 @@ describe("interpolateString()", () => {
 });
 
 describe("createInterpolatorWithNumberFormat()", () => {
-  const formatSpy = jest.spyOn(Intl, "NumberFormat");
+  const formatSpy = jest.fn();
+  class MockNumberFormat extends Intl.NumberFormat {
+    // tslint:disable-next-line: no-any
+    constructor(...args: any[]) {
+      super(...args);
+      formatSpy(...args);
+    }
+  }
+  // @ts-ignore
+  Intl.NumberFormat = MockNumberFormat;
 
   test("creates interpolator that also formats numbers using Intl.NumberFormat", () => {
     const interpolateEn = createInterpolatorWithNumberFormat("en-GB");
@@ -123,6 +132,6 @@ describe("createInterpolatorWithNumberFormat()", () => {
     const ruStr = interpolateRu("Your score is: {{ score }}", {
       score: 4000.6,
     });
-    expect(ruStr).toBe("Your score is: 4 000,6");
+    expect(ruStr).toBe("Your score is: 4,000.6");
   });
 });

@@ -23,7 +23,6 @@
       "type": "node",
       "request": "launch",
       "runtimeArgs": [
-        "--icu-data-dir=node_modules/full-icu",
         "--inspect-brk",
         "${workspaceRoot}/node_modules/jest/bin/jest",
         "--runInBand",
