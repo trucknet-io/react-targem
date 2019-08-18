@@ -1,4 +1,4 @@
-import { InterpolationScope } from "./types";
+import { InterpolationScope, NumberFormatter } from "./types";
 
 // Note that [^] is used rather than . to match any character. This
 // is because . doesn't span over multiple lines, whereas [^] does.
@@ -15,7 +15,10 @@ export function isTemplateVariable(str: string): boolean {
  * Interpolates a string, replacing template variables with values
  * provided in the scope.
  */
-export function interpolateString(str: string, scope: InterpolationScope = {}) {
+export function interpolateString(
+  str: string,
+  scope: InterpolationScope = {},
+): string {
   if (!str) {
     return str;
   }
@@ -43,4 +46,31 @@ export function interpolateString(str: string, scope: InterpolationScope = {}) {
       return scope[variableName];
     })
     .join("");
+}
+
+export function createInterpolatorWithNumberFormat(locale: string) {
+  const formatter = getNumberFormatter(locale);
+  return (str: string, scope: InterpolationScope = {}): string => {
+    const newScope = formatScopeNumbers(formatter, scope);
+    return interpolateString(str, newScope);
+  };
+}
+
+export function getNumberFormatter(locale: string): NumberFormatter {
+  if (typeof Intl === "undefined") {
+    return (n: number) => n.toLocaleString(locale);
+  }
+  const numberFormat = new Intl.NumberFormat(locale);
+  return (n: number) => numberFormat.format(n);
+}
+
+export function formatScopeNumbers(
+  formatter: NumberFormatter,
+  scope: InterpolationScope,
+): InterpolationScope {
+  return Object.keys(scope).reduce((res: InterpolationScope, key) => {
+    const value = scope[key];
+    res[key] = typeof value === "number" ? formatter(value) : value;
+    return res;
+  }, {});
 }

@@ -33,7 +33,8 @@ class Body extends React.PureComponent {
           <T
             message="There is {{ count }} line of code"
             messagePlural="There are {{ count }} lines of code"
-            count={3}
+            formatScopeNumbers
+            count={3000.6}
           />
         </h1>
       </div>

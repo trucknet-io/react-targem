@@ -4,7 +4,9 @@ import React from "react";
 import {
   LocaleDirection,
   t,
+  tf,
   tn,
+  tnf,
   TranslationsMap,
   translationsToCatalogs,
 } from "../localization";
@@ -15,6 +17,8 @@ export interface WithLocale {
   locale: string;
   t: ReturnType<typeof t>;
   tn: ReturnType<typeof tn>;
+  tf: ReturnType<typeof tf>;
+  tnf: ReturnType<typeof tnf>;
   changeLocale?(locale: string): void;
 }
 
@@ -37,6 +41,8 @@ const { Provider, Consumer } = React.createContext<WithLocale>({
   locale: "en",
   t: () => "",
   tn: () => "",
+  tf: () => "",
+  tnf: () => "",
 });
 
 export { Provider as RawLocaleProvider };
@@ -123,6 +129,8 @@ export class TargemProvider<AddProps> extends React.PureComponent<
       direction,
       t: t(catalogs, locale),
       tn: tn(catalogs, locale),
+      tf: tf(catalogs, locale),
+      tnf: tnf(catalogs, locale),
     };
   }
 }

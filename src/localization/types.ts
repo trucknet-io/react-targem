@@ -47,3 +47,5 @@ export type GettextCatalogs = {
 export type InterpolationScope = {
   [key: string]: string | number | boolean | undefined;
 };
+
+export type NumberFormatter = (num: number) => string;
