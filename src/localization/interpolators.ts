@@ -1,3 +1,4 @@
+import memoizeOne from "memoize-one";
 import { InterpolationScope, NumberFormatter } from "./types";
 
 /**
@@ -40,7 +41,7 @@ export function interpolateString(
 export function createInterpolatorWithNumberFormat(locale: string) {
   const formatter = getNumberFormatter(locale);
   return (str: string, scope: InterpolationScope = {}): string => {
-    const newScope = formatScopeNumbers(formatter, scope);
+    const newScope = formatNumbers(formatter, scope);
     return interpolateString(str, newScope);
   };
 }
@@ -56,15 +57,18 @@ function isTemplateVariable(str: string): boolean {
   return new RegExp(variableRegex).test(str);
 }
 
-function getNumberFormatter(locale: string): NumberFormatter {
-  if (typeof Intl === "undefined") {
-    return (n: number) => n.toLocaleString(locale);
-  }
-  const numberFormat = new Intl.NumberFormat(locale);
-  return (n: number) => numberFormat.format(n);
-}
+const getNumberFormatter = memoizeOne(
+  (locale: string): NumberFormatter => {
+    if (typeof Intl === "undefined") {
+      return (n: number) => n.toLocaleString(locale);
+    }
 
-function formatScopeNumbers(
+    const numberFormat = new Intl.NumberFormat(locale);
+    return (n: number) => numberFormat.format(n);
+  },
+);
+
+function formatNumbers(
   formatter: NumberFormatter,
   scope: InterpolationScope,
 ): InterpolationScope {

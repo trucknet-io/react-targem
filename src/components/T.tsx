@@ -8,7 +8,7 @@ export type TProps = {
   asString?: boolean;
   context?: string;
   count?: number;
-  formatScopeNumbers?: boolean;
+  formatNumbers?: boolean;
   messagePlural?: string;
   scope?: InterpolationScope;
 } & (
@@ -22,7 +22,7 @@ export class TBase extends React.PureComponent<WithLocale & TProps> {
       children,
       context,
       count,
-      formatScopeNumbers,
+      formatNumbers,
       message,
       messagePlural,
       scope,
@@ -30,7 +30,7 @@ export class TBase extends React.PureComponent<WithLocale & TProps> {
       tnf,
     } = this.props;
 
-    const translate = formatScopeNumbers ? tnf : tn;
+    const translate = formatNumbers ? tnf : tn;
     const translation = translate(
       message || children || "",
       messagePlural || "",

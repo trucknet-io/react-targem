@@ -85,7 +85,7 @@ function App({ name, numPotatoes }) {
           messagePlural="Dear {{ name }}, there are {{ count }} potatoes left"
           count={numPotatoes}
           scope={{ name }}
-          formatScopeNumbers
+          formatNumbers
         />
         {/* => <span>אלכס היקר, נותרו שתי תפוחי אדמה</span> */}
 
@@ -158,7 +158,7 @@ Exposes a set of props that make it easy to translate and interpolate your conte
 - `scope` _(optional: Object)_ – Used as variables source when interpolating `message` and `messagePlural`.
 - `context` _(optional: string)_ – Translation context (`msgctxt` in pot).
 - `asString` _(optional: boolean = false)_ – Whether to render translation as a raw string instead of wrapping it with `<span>` element.
-- `formatScopeNumbers` _(optional: boolean = false)_ – Whether to format all numbers in `scope` object using [Intl.NumberFormat](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat). If browser (or Node) doesn't support `Intl.NumberFormat` then formatting fallbacks to `Number.toLocaleString()`.
+- `formatNumbers` _(optional: boolean = false)_ – Whether to format `count` and all numbers in `scope` object using [Intl.NumberFormat](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat). If browser (or Node) doesn't support `Intl.NumberFormat` then formatting fallbacks to `Number.prototype.toLocaleString()`.
 
 ---
 
@@ -177,8 +177,8 @@ Provides `Component` with the `react-targem` context variables as props.
 - `changeLocale` _: undefined | (locale: string) => void_ – This function is passed only when `<TargemStatefulProvider />` is used. It changes current locale.
 - `t` _: (message: string, scope: Object = {}, context?: string) => string_ – Translates and interpolates message. See the usage below.
 - `tn` _: (message: string, messagePlural: string, count: number, scope: Object = {}, context?: string) => string_ – Translates and interpolates pluralized message. See the usage below.
-- `tf` – Same as `t` but also formats all numbers in scope. See `T.props.formatScopeNumbers`.
-- `tnf` – Same as `tn` but also formats all numbers in scope. See `T.props.formatScopeNumbers`.
+- `tf` – Same as `t` but also formats all numbers. See `formatNumbers` in [`<T/>`](#t) props above.
+- `tnf` – Same as `tn` but also formats all numbers. See `formatNumbers` in [`<T/>`](#t) props above.
 
 ```jsx
 import { withLocale } from "react-targem";
@@ -219,13 +219,13 @@ react-targem makes it possible to change locale and have all the application's t
 
 <!--size-start-->
 ```
-       6.8 kB: index.min.mjs
+      6.79 kB: index.min.mjs
       2.46 kB: index.min.mjs.gz
       2.22 kB: index.min.mjs.br
 
-      7.34 kB: index.umd.min.js
+      7.35 kB: index.umd.min.js
       2.78 kB: index.umd.min.js.gz
-      2.51 kB: index.umd.min.js.br
+       2.5 kB: index.umd.min.js.br
 ```
 <!--size-end-->
 
