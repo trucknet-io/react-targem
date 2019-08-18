@@ -1,10 +1,8 @@
-import { LocaleDirection } from "@lib";
-
 export type Locale = {
   code: string;
   englishTitle: string;
   localTitle: string;
-  direction?: LocaleDirection;
+  direction?: "ltr" | "rtl";
 };
 
 export type LocalesMap = { [localeCode: string]: Locale };
