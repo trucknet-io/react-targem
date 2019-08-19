@@ -45,6 +45,20 @@
             "There is {{ count }} button",
             "There are {{ count }} buttons"
           ]
+        },
+        "You have one answer, your score is: {{ score }}": {
+          "msgid": "You have one answer, your score is: {{ score }}",
+          "comments": { "reference": "dev/src/layouts/Inner.tsx:19" },
+          "msgid_plural": "You have {{ count }} answers, your score is: {{ score }}",
+          "msgstr": [
+            "You have one answer, your score is: {{ score }}",
+            "You have {{ count }} answers, your score is: {{ score }}"
+          ]
+        },
+        "Your score is: {{ score }}": {
+          "msgid": "Your score is: {{ score }}",
+          "comments": { "reference": "dev/src/layouts/Inner.tsx:19" },
+          "msgstr": ["Your score is: {{ score }}"]
         }
       },
       "someContext": {
@@ -192,6 +206,21 @@
             "{{ count }} кнопки",
             "{{ count }} кнопок"
           ]
+        },
+        "You have one answer, your score is: {{ score }}": {
+          "msgid": "You have one answer, your score is: {{ score }}",
+          "comments": { "reference": "dev/src/layouts/Inner.tsx:19" },
+          "msgid_plural": "You have {{ count }} answers, your score is: {{ score }}",
+          "msgstr": [
+            "У Вас один ответ, Ваш счёт: {{ score }}",
+            "У Вас {{ count }} ответа, Ваш счёт: {{ score }}",
+            "У Вас {{ count }} ответов, Ваш счёт: {{ score }}"
+          ]
+        },
+        "Your score is: {{ score }}": {
+          "msgid": "Your score is: {{ score }}",
+          "comments": { "reference": "dev/src/layouts/Inner.tsx:19" },
+          "msgstr": ["Ваш счёт: {{ score }}"]
         }
       },
       "someContext": {

@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Wed Aug 14 2019 17:13:42 GMT+0300 (Eastern European "
+"POT-Creation-Date: Sun Aug 18 2019 11:36:20 GMT+0300 (Eastern European "
 "Summer Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Project-Id-Version: react-targem 0.0.0\n"
+"Project-Id-Version: react-targem 1.0.0\n"
 "PO-Revision-Date: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,9 +36,3 @@ msgstr[1] "There are {{ count }} lines of code"
 #: dev/src/layouts/Inner.tsx:12
 msgid "Current locale"
 msgstr "Current locale"
-
-#: dev/src/layouts/Inner.tsx:17
-msgid "There is {{ count }} button"
-msgid_plural "There are {{ count }} buttons"
-msgstr[0] "There is {{ count }} button"
-msgstr[1] "There are {{ count }} buttons"

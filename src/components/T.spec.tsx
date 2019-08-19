@@ -75,7 +75,7 @@ describe("<T />", () => {
 
   test("translates on the fly when locale changes", () => {
     const res = render(
-      <Provider locale="en">
+      <Provider locale="en-GB">
         <T message="Hello, World!" />
       </Provider>,
     );
@@ -94,5 +94,35 @@ describe("<T />", () => {
       </Provider>,
     );
     expect(res.getByText("שלום עולם!")).toBeInTheDocument();
+  });
+
+  test("formats count and scope numbers when props.formatNumbers === true", () => {
+    const res = render(
+      <Provider locale="en-GB">
+        <T
+          message="You have one answer, your score is: {{ score }}"
+          count={5000}
+          scope={{ score: 1000.5 }}
+          formatNumbers
+        />
+      </Provider>,
+    );
+    expect(
+      res.getByText("You have 5,000 answers, your score is: 1,000.5"),
+    ).toBeInTheDocument();
+
+    res.rerender(
+      <Provider locale="ru">
+        <T
+          message="You have one answer, your score is: {{ score }}"
+          count={5000}
+          scope={{ score: 1000.5 }}
+          formatNumbers
+        />
+      </Provider>,
+    );
+    expect(
+      res.getByText("У Вас 5 000 ответов, Ваш счёт: 1 000,5"),
+    ).toBeInTheDocument();
   });
 });
