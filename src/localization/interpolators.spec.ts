@@ -1,4 +1,7 @@
-import { interpolateString } from "./interpolators";
+import {
+  createInterpolatorWithNumberFormat,
+  interpolateString,
+} from "./interpolators";
 
 describe("interpolateString()", () => {
   test("returns the input string as is if it does not contain any variables", () => {
@@ -80,5 +83,55 @@ describe("interpolateString()", () => {
       func: function beat() {},
     });
     expect(result5).toEqual("Dance to the function beat() { }");
+  });
+});
+
+describe("createInterpolatorWithNumberFormat()", () => {
+  const formatSpy = jest.fn();
+  class MockNumberFormat extends Intl.NumberFormat {
+    // tslint:disable-next-line: no-any
+    constructor(...args: any[]) {
+      super(...args);
+      formatSpy(...args);
+    }
+  }
+  // @ts-ignore
+  Intl.NumberFormat = MockNumberFormat;
+
+  test("creates interpolator that also formats numbers using Intl.NumberFormat", () => {
+    const interpolateEn = createInterpolatorWithNumberFormat("en-GB");
+    expect(formatSpy).toBeCalledWith("en-GB");
+    const enStr = interpolateEn("Your score is: {{ score }}", {
+      score: 5000.5,
+    });
+    expect(enStr).toBe("Your score is: 5,000.5");
+
+    const interpolateRu = createInterpolatorWithNumberFormat("ru");
+    expect(formatSpy).toBeCalledWith("ru");
+    const ruStr = interpolateRu("Your score is: {{ score }}", {
+      score: 4000.6,
+    });
+    expect(ruStr).toBe("Your score is: 4 000,6");
+
+    formatSpy.mockClear();
+  });
+
+  test("fallbacks to Number.prototype.toLocaleString() if Intl is not available", () => {
+    // @ts-ignore
+    global.Intl = undefined;
+
+    const interpolateEn = createInterpolatorWithNumberFormat("en-GB");
+    expect(formatSpy).not.toBeCalled();
+    const enStr = interpolateEn("Your score is: {{ score }}", {
+      score: 5000.5,
+    });
+    expect(enStr).toBe("Your score is: 5,000.5");
+
+    const interpolateRu = createInterpolatorWithNumberFormat("ru");
+    expect(formatSpy).not.toBeCalled();
+    const ruStr = interpolateRu("Your score is: {{ score }}", {
+      score: 4000.6,
+    });
+    expect(ruStr).toBe("Your score is: 4,000.6");
   });
 });

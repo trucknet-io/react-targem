@@ -36,6 +36,7 @@
 - Context and plural
 - String interpolation using a `{{ variable }}` style syntax
 - [Locale switching](#locale-switching) on the fly
+- Optional number formatting using [Intl.NumberFormat](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat)
 - TypeScript support
 - SSR friendly
 
@@ -84,6 +85,7 @@ function App({ name, numPotatoes }) {
           messagePlural="Dear {{ name }}, there are {{ count }} potatoes left"
           count={numPotatoes}
           scope={{ name }}
+          formatNumbers
         />
         {/* => <span>אלכס היקר, נותרו שתי תפוחי אדמה</span> */}
 
@@ -118,7 +120,7 @@ Creates localization context for all child `<T />` components. This context can 
 - `locale` _(optional: string)_ – Current locale. If you don't pass this prop then `defaultLocale` is used (see below).
 - `defaultLocale` _(optional: string)_ – Locale that is used when `locale` prop is empty. If you don't pass `defaultLocale` then the first locale from `translations` is used or `"en"` if `translations === {}`.
 - `direction` _(optional: "ltr" | "rtl")_ – Current text direction. When omitted direction is resolved based on the current `locale`. There is a [predefined list](./src/utils/constants.ts) of 12 locale codes for which react-targem knows that they are `"rtl"`.
-- `controlBodyDir` _(optional: boolean = true)_ – By default (if not SSR) when `direction` changes `TargemProvider` tries to do `document.body.dir = direction`. You can disable this by passings `controlBodyDir={false}`.
+- `controlBodyDir` _(optional: boolean = true)_ – By default (if not SSR) when `direction` changes `TargemProvider` tries to do `document.body.dir = direction`. You can disable this by passing `controlBodyDir={false}`.
 - `setBodyDir` _(optional: (dir: "ltr" | "rtl") => void)_ – When `controlBodyDir` is enabled you can pass your own function to override existing `document.body.dir = direction` behavior.
 
 ---
@@ -155,7 +157,8 @@ Exposes a set of props that make it easy to translate and interpolate your conte
 - `count` _(optional: number)_ – Used to translate pluralized message and also interpolates into `messagePlural` and `message` as `{{ count }}`.
 - `scope` _(optional: Object)_ – Used as variables source when interpolating `message` and `messagePlural`.
 - `context` _(optional: string)_ – Translation context (`msgctxt` in pot).
-- `asString` _(optional: boolean = false)_ – Renders translation as a raw string instead of wrapping it with `<span>` element.
+- `asString` _(optional: boolean = false)_ – Whether to render translation as a raw string instead of wrapping it with `<span>` element.
+- `formatNumbers` _(optional: boolean = false)_ – Whether to format `count` and all numbers in `scope` object using [Intl.NumberFormat](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat). If browser (or Node) doesn't support `Intl.NumberFormat` then formatting fallbacks to `Number.prototype.toLocaleString()`.
 
 ---
 
@@ -174,6 +177,8 @@ Provides `Component` with the `react-targem` context variables as props.
 - `changeLocale` _: undefined | (locale: string) => void_ – This function is passed only when `<TargemStatefulProvider />` is used. It changes current locale.
 - `t` _: (message: string, scope: Object = {}, context?: string) => string_ – Translates and interpolates message. See the usage below.
 - `tn` _: (message: string, messagePlural: string, count: number, scope: Object = {}, context?: string) => string_ – Translates and interpolates pluralized message. See the usage below.
+- `tf` – Same as `t` but also formats all numbers. See `formatNumbers` in [`<T/>`](#t) props above.
+- `tnf` – Same as `tn` but also formats all numbers. See `formatNumbers` in [`<T/>`](#t) props above.
 
 ```jsx
 import { withLocale } from "react-targem";
@@ -214,13 +219,13 @@ react-targem makes it possible to change locale and have all the application's t
 
 <!--size-start-->
 ```
-      6.02 kB: index.min.mjs
-      2.26 kB: index.min.mjs.gz
-      2.02 kB: index.min.mjs.br
+      6.79 kB: index.min.mjs
+      2.46 kB: index.min.mjs.gz
+      2.22 kB: index.min.mjs.br
 
-      6.65 kB: index.umd.min.js
-      2.58 kB: index.umd.min.js.gz
-      2.33 kB: index.umd.min.js.br
+      7.35 kB: index.umd.min.js
+      2.78 kB: index.umd.min.js.gz
+       2.5 kB: index.umd.min.js.br
 ```
 <!--size-end-->
 

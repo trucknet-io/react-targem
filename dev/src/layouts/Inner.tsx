@@ -5,7 +5,7 @@ import { SUPPORTED_LOCALES } from "@src/config/locales";
 
 class Inner extends React.PureComponent<WithLocaleStateful> {
   public render() {
-    const { direction, locale, t, tn } = this.props;
+    const { direction, locale, t, tnf } = this.props;
     return (
       <div>
         <h1>
@@ -13,11 +13,11 @@ class Inner extends React.PureComponent<WithLocaleStateful> {
           <span style={{ color: "green" }}>{locale}</span> | <i>{direction}</i>
         </h1>
         <h3>
-          tn() usage:{" "}
-          {tn(
+          tnf() usage:{" "}
+          {tnf(
             "There is {{ count }} button",
             "There are {{ count }} buttons",
-            2,
+            20000,
           )}
         </h3>
         <div dir="ltr">

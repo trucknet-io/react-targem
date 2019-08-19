@@ -11,13 +11,10 @@ import {
 export function translationsToCatalogs(
   translations: TranslationsMap,
 ): GettextCatalogs {
-  return Object.entries(translations).reduce(
-    (res: GettextCatalogs, [locale, translation]) => {
-      res[locale] = potToCatalog(locale, translation);
-      return res;
-    },
-    {},
-  );
+  return Object.keys(translations).reduce((res: GettextCatalogs, locale) => {
+    res[locale] = potToCatalog(locale, translations[locale]);
+    return res;
+  }, {});
 }
 
 export function potToCatalog(locale: string, pot: ParsedPot): GettextCatalog {
