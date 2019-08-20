@@ -33,7 +33,7 @@ describe("findLocale", () => {
     expect(consoleWarnSpy).toBeCalledTimes(1);
   });
 
-  it("Should throw LocaleNotSupported error if not found", () => {
-    expect(() => findLocale(supportedLocales, "foo")).toThrow();
+  it("Should return undefined if not found", () => {
+    expect(findLocale(supportedLocales, "foo")).toBeUndefined();
   });
 });
