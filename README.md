@@ -23,9 +23,9 @@
   - [Features](#features)
   - [Installation](#installation)
   - [Usage](#usage)
-    - [`<TargemProvider />`](#targemprovider)
-    - [`<TargemStatefulProvider />`](#targemstatefulprovider)
-    - [`<T />`](#t)
+    - [`<TargemProvider/>`](#targemprovider)
+    - [`<TargemStatefulProvider/>`](#targemstatefulprovider)
+    - [`<T/>`](#t)
     - [`withLocale(Component)`](#withlocalecomponent)
     - [Locale switching](#locale-switching)
   - [Size](#size)
@@ -106,7 +106,7 @@ ReactDOM.render(
 
 ---
 
-### `<TargemProvider />`
+### `<TargemProvider/>`
 
 ```js
 import { TargemProvider } from "react-targem";
@@ -117,15 +117,16 @@ Creates localization context for all child `<T />` components. This context can 
 **Props:**
 
 - `translations` **_(required: Object)_** – Translations as a map of `{ [locale: string]: ParsedPot }` where [ParsedPot](./src/localization/types.ts#L27) is an output of `po()` function call from [gettext-parser](https://github.com/smhg/gettext-parser). See also [gettext-utils](https://github.com/goooseman/gettext-utils).
-- `locale` _(optional: string)_ – Current locale. If you don't pass this prop then `defaultLocale` is used (see below).
-- `defaultLocale` _(optional: string)_ – Locale that is used when `locale` prop is empty. If you don't pass `defaultLocale` then the first locale from `translations` is used or `"en"` if `translations === {}`.
+- `locale` _(optional: string)_ – Current locale. If you don't pass this prop then `detectLocale` or `defaultLocale` is used (see below).
+- `detectLocale` _(optional: boolean = true)_ - If `locale` prop is omitted targem will try to detect your locale based on `navigator.language`. If locale is not found there then `defaultLocale` is used as a fallback.
+- `defaultLocale` _(optional: string)_ – Locale that is used as a fallback for `detectLocale` or when `detectLocale` is disabled and `locale` prop is empty.
 - `direction` _(optional: "ltr" | "rtl")_ – Current text direction. When omitted direction is resolved based on the current `locale`. There is a [predefined list](./src/utils/constants.ts) of 12 locale codes for which react-targem knows that they are `"rtl"`.
 - `controlBodyDir` _(optional: boolean = true)_ – By default (if not SSR) when `direction` changes `TargemProvider` tries to do `document.body.dir = direction`. You can disable this by passing `controlBodyDir={false}`.
 - `setBodyDir` _(optional: (dir: "ltr" | "rtl") => void)_ – When `controlBodyDir` is enabled you can pass your own function to override existing `document.body.dir = direction` behavior.
 
 ---
 
-### `<TargemStatefulProvider />`
+### `<TargemStatefulProvider/>`
 
 ```js
 import { TargemStatefulProvider } from "react-targem";
@@ -136,13 +137,14 @@ A thin wrapper around `<TargemProvider />` that allows you to store and change c
 **Props:**
 
 - `translations` **_(required)_** – See [TargemProvider.props.translations](#targemprovider) above.
+- `detectLocale` _(optional)_ – See [TargemProvider.props.detectLocale](#targemprovider) above.
 - `defaultLocale` _(optional)_ – See [TargemProvider.props.defaultLocale](#targemprovider) above.
 - `controlBodyDir` _(optional)_ – See [TargemProvider.props.controlBodyDir](#targemprovider) above.
 - `setBodyDir` _(optional)_ – See [TargemProvider.props.setBodyDir](#targemprovider) above.
 
 ---
 
-### `<T />`
+### `<T/>`
 
 ```js
 import { T } from "react-targem";
@@ -218,15 +220,17 @@ react-targem makes it possible to change locale and have all the application's t
 ## Size
 
 <!--size-start-->
-```
-      6.79 kB: index.min.mjs
-      2.46 kB: index.min.mjs.gz
-      2.22 kB: index.min.mjs.br
 
-      7.35 kB: index.umd.min.js
-      2.78 kB: index.umd.min.js.gz
-       2.5 kB: index.umd.min.js.br
 ```
+       6.7 kB: index.min.mjs
+      2.46 kB: index.min.mjs.gz
+      2.21 kB: index.min.mjs.br
+
+      7.24 kB: index.umd.min.js
+      2.78 kB: index.umd.min.js.gz
+      2.51 kB: index.umd.min.js.br
+```
+
 <!--size-end-->
 
 ## See also

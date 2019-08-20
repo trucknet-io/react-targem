@@ -25,6 +25,7 @@ export interface WithLocale {
 export type TargemProviderProps<AddProps extends Object = {}> = {
   controlBodyDir?: boolean;
   defaultLocale?: string;
+  detectLocale?: boolean;
   direction?: LocaleDirection;
   locale?: string;
   translations: TranslationsMap;
@@ -33,7 +34,7 @@ export type TargemProviderProps<AddProps extends Object = {}> = {
 
 export type DefaultTargemProviderProps = Pick<
   TargemProviderProps,
-  "controlBodyDir"
+  "controlBodyDir" | "detectLocale"
 >;
 
 const { Provider, Consumer } = React.createContext<WithLocale>({
@@ -52,6 +53,7 @@ export class TargemProvider<AddProps> extends React.PureComponent<
 > {
   public static defaultProps: DefaultTargemProviderProps = {
     controlBodyDir: true,
+    detectLocale: true,
   };
 
   protected getValue = memoizeOne(this.getNewValue.bind(this));
@@ -68,11 +70,12 @@ export class TargemProvider<AddProps> extends React.PureComponent<
 
   protected getDefaultLocale = memoizeOne(
     (translations: TranslationsMap): string => {
-      if (this.props.defaultLocale) {
-        return this.props.defaultLocale as string;
+      const { defaultLocale, detectLocale } = this.props;
+      if (!detectLocale && defaultLocale) {
+        return defaultLocale as string;
       }
       const locales = this.getSupportedLocales(translations);
-      return getBrowserLocale(locales, this.props.defaultLocale);
+      return getBrowserLocale(locales, defaultLocale);
     },
   );
 
