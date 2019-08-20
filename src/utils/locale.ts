@@ -23,6 +23,11 @@ export function getBrowserLocale(
     try {
       return findLocale(supportedLocales, window.navigator.language);
     } catch (_) {}
+    if (!fallbackLocale) {
+      try {
+        return findLocale(supportedLocales, "en");
+      } catch (_) {}
+    }
   }
-  return supportedLocales[0] || fallbackLocale || "en";
+  return fallbackLocale || supportedLocales[0] || "en";
 }

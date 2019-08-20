@@ -30,6 +30,7 @@ class TargemStatefulBase extends TargemProvider<{
 export type TargemStatefulProviderProps = {
   controlBodyDir?: boolean;
   defaultLocale?: string;
+  detectLocale?: boolean;
   translations: TranslationsMap;
   setBodyDir?(dir: LocaleDirection): void;
 };
@@ -44,24 +45,12 @@ export class TargemStatefulProvider extends React.PureComponent<
   public state: TargemStatefulProviderState = {};
 
   public render() {
-    const {
-      children,
-      controlBodyDir,
-      defaultLocale,
-      setBodyDir,
-      translations,
-    } = this.props;
-
     return (
       <TargemStatefulBase
         changeLocale={this.changeLocale}
-        controlBodyDir={controlBodyDir}
-        defaultLocale={defaultLocale}
         locale={this.state.locale}
-        setBodyDir={setBodyDir}
-        translations={translations}>
-        {children}
-      </TargemStatefulBase>
+        {...this.props}
+      />
     );
   }
 

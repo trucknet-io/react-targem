@@ -49,9 +49,39 @@ describe("<TargemProvider/>", () => {
     expect(res.getByText("Current locale: en-GB")).toBeInTheDocument();
   });
 
-  test("passes defaultLocale as locale if locale prop is omitted", () => {
+  test("auto detects locale from navigator.language by default", () => {
+    const res = render(
+      <TargemProvider translations={translationsJson}>
+        <MyComponent />
+      </TargemProvider>,
+    );
+    expect(res.getByText("Current locale: en-GB")).toBeInTheDocument();
+  });
+
+  test("auto detection fallbacks to defaultLocale", () => {
+    Object.defineProperty(window.navigator, "language", {
+      configurable: true,
+      writable: true,
+      value: "unsupported_locale",
+    });
+
     const res = render(
       <TargemProvider defaultLocale="ru" translations={translationsJson}>
+        <MyComponent />
+      </TargemProvider>,
+    );
+    expect(res.getByText("Текущая локаль: ru")).toBeInTheDocument();
+
+    // @ts-ignore
+    window.navigator.language = "en-US";
+  });
+
+  test("passes defaultLocale as locale if locale prop is omitted", () => {
+    const res = render(
+      <TargemProvider
+        detectLocale={false}
+        defaultLocale="ru"
+        translations={translationsJson}>
         <MyComponent />
       </TargemProvider>,
     );
