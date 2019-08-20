@@ -21,6 +21,7 @@ describe("<T />", () => {
     locale = "ru",
   }) => (
     <TargemStatefulProvider
+      detectLocale={false}
       defaultLocale={locale}
       translations={translationsJson}>
       {children}

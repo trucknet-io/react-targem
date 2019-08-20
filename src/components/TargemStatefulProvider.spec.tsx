@@ -43,6 +43,7 @@ describe("<TargemProvider/>", () => {
   test("provides child components with translation context", () => {
     const res = render(
       <TargemStatefulProvider
+        detectLocale={false}
         defaultLocale="he"
         translations={translationsJson}>
         <MyComponent />
