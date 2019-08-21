@@ -1,4 +1,7 @@
-export function findLocale(supportedLocales: string[], locale: string): string {
+export function findLocale(
+  supportedLocales: string[],
+  locale: string,
+): string | undefined {
   if (supportedLocales.includes(locale)) {
     return locale;
   }
@@ -10,24 +13,19 @@ export function findLocale(supportedLocales: string[], locale: string): string {
       return localeToMatch;
     }
   }
-  throw new LocaleNotSupportedError(`Locale ${locale} was not found`);
+  return undefined;
 }
-
-export class LocaleNotSupportedError extends Error {}
 
 export function getBrowserLocale(
   supportedLocales: string[],
   fallbackLocale?: string,
 ) {
+  let browserLocale: string | undefined;
   if (typeof window !== "undefined" && window.navigator.language) {
-    try {
-      return findLocale(supportedLocales, window.navigator.language);
-    } catch (_) {}
-    if (!fallbackLocale) {
-      try {
-        return findLocale(supportedLocales, "en");
-      } catch (_) {}
+    browserLocale = findLocale(supportedLocales, window.navigator.language);
+    if (!browserLocale && !fallbackLocale) {
+      browserLocale = findLocale(supportedLocales, "en");
     }
   }
-  return fallbackLocale || supportedLocales[0] || "en";
+  return browserLocale || fallbackLocale || supportedLocales[0] || "en";
 }
