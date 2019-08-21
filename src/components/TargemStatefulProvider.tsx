@@ -3,7 +3,11 @@ import React from "react";
 
 import { LocaleDirection, TranslationsMap } from "../localization";
 import { warn } from "../utils";
-import { TargemProvider, WithLocale } from "./TargemProvider";
+import {
+  TargemProvider,
+  TargemProviderProps,
+  WithLocale,
+} from "./TargemProvider";
 
 export type WithLocaleStateful = Required<WithLocale>;
 
@@ -28,11 +32,11 @@ class TargemStatefulBase extends TargemProvider<{
 }
 
 export type TargemStatefulProviderProps = {
-  controlBodyDir?: boolean;
-  defaultLocale?: string;
-  detectLocale?: boolean;
-  translations: TranslationsMap;
-  setBodyDir?(dir: LocaleDirection): void;
+  controlBodyDir?: TargemProviderProps["controlBodyDir"];
+  defaultLocale?: TargemProviderProps["defaultLocale"];
+  detectLocale?: TargemProviderProps["detectLocale"];
+  translations: TargemProviderProps["translations"];
+  setBodyDir?: TargemProviderProps["setBodyDir"];
 };
 export type TargemStatefulProviderState = {
   locale?: string;
