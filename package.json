@@ -1,6 +1,6 @@
 {
   "name": "react-targem",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A React library for efficiently implementing Gettext localization",
   "main": "./dist/bundles/index.umd.js",
   "module": "./dist/esm5/index.js",
