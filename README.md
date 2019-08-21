@@ -78,20 +78,23 @@ function App({ name, numPotatoes }) {
     >
       <div className="App">
         <h1><T>Potato inventory</T></h1>
-        {/* => <h1><span>מלאי תפוחי אדמה</span></h1> */}
+        {/* => <h1>מלאי תפוחי אדמה</h1> */}
 
         <T
           message="Dear {{ name }}, there is one potato left"
           messagePlural="Dear {{ name }}, there are {{ count }} potatoes left"
           count={numPotatoes}
           scope={{ name }}
+          component="span"
           formatNumbers
         />
-        {/* => <span>אלכס היקר, נותרו שתי תפוחי אדמה</span> */}
+        {/* => <span>אלכס היקר, נותרו 2 תפוחי אדמה</span> */}
 
-        <a href="http://potatoes.com/buy">
-          <T message="By more potatoes here!" asString />
-        </a>
+        <T
+          message="By more potatoes here!"
+          component="a"
+          componentProps={{ href="http://potatoes.com/buy" }}
+        />
         {/* => <a href="http://potatoes.com/buy">לפי עוד תפוחי אדמה כאן!</a> */}
       </div>
     </TargemProvider>
@@ -159,7 +162,8 @@ Exposes a set of props that make it easy to translate and interpolate your conte
 - `count` _(optional: number)_ – Used to translate pluralized message and also interpolates into `messagePlural` and `message` as `{{ count }}`.
 - `scope` _(optional: Object)_ – Used as variables source when interpolating `message` and `messagePlural`.
 - `context` _(optional: string)_ – Translation context (`msgctxt` in pot).
-- `asString` _(optional: boolean = false)_ – Whether to render translation as a raw string instead of wrapping it with `<span>` element.
+- `component` _(optional: React.ReactType)_ – Component or element type to wrap your translation string with.
+- `componentProps` _(optional: Object)_ – Props to be passed to your wrapper `component`.
 - `formatNumbers` _(optional: boolean = false)_ – Whether to format `count` and all numbers in `scope` object using [Intl.NumberFormat](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat). If browser (or Node) doesn't support `Intl.NumberFormat` then formatting fallbacks to `Number.prototype.toLocaleString()`.
 
 ---
@@ -220,15 +224,17 @@ react-targem makes it possible to change locale and have all the application's t
 ## Size
 
 <!--size-start-->
-```
-       6.7 kB: index.min.mjs
-      2.46 kB: index.min.mjs.gz
-      2.21 kB: index.min.mjs.br
 
-      7.24 kB: index.umd.min.js
-      2.78 kB: index.umd.min.js.gz
-      2.51 kB: index.umd.min.js.br
 ```
+      6.54 kB: index.min.mjs
+      2.41 kB: index.min.mjs.gz
+      2.16 kB: index.min.mjs.br
+
+      7.06 kB: index.umd.min.js
+      2.73 kB: index.umd.min.js.gz
+      2.46 kB: index.umd.min.js.br
+```
+
 <!--size-end-->
 
 ## See also

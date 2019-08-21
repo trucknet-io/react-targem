@@ -106,7 +106,7 @@ async function saveSizesLock(output) {
   let readmeContent = (await readFile(readmePath)).toString();
   readmeContent = readmeContent.replace(
     /<!--size-start-->(.|\n|\r|\t)*<!--size-end-->/gim,
-    `<!--size-start-->\n\`\`\`\n${bundleSizes}\n\`\`\`\n<!--size-end-->`,
+    `<!--size-start-->\n\n\`\`\`\n${bundleSizes}\n\`\`\`\n\n<!--size-end-->`,
   );
 
   await Promise.all([

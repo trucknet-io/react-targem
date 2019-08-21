@@ -2,6 +2,9 @@
 
 # Configure git to be not-interactive
 
+git add ./bundle-sizes.lock ./README.md
+git commit --no-verify -m "docs: 📝 Updated bundle sizes info"
+
 export GIT_MERGE_AUTOEDIT=no
 git config gitflow.hotfix.finish.message "Hotfix %tag%"
 git config gitflow.release.finish.message "Release %tag%"

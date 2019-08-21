@@ -44,6 +44,23 @@ describe("<T />", () => {
     expect(res2.getByText("Привет, Мир!")).toBeInTheDocument();
   });
 
+  test("allows wrapping translation with a component", () => {
+    const res = render(
+      <Provider>
+        <T
+          message="Current locale"
+          component="a"
+          componentProps={{ href: "www.google.com" }}
+        />
+      </Provider>,
+    );
+    const el = res.getByText("Текущая локаль");
+
+    expect(el).toBeInTheDocument();
+    expect(el.nodeName).toBe("A");
+    expect(el.getAttribute("href")).toBe("www.google.com");
+  });
+
   test("translates pluralized message", () => {
     const res = render(
       <Provider>
