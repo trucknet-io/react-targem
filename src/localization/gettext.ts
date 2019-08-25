@@ -93,17 +93,11 @@ export function getPluralFunction(
     translations.headers["plural-forms"];
 
   if (!pluralForms) {
-    warn(
-      `Translations for locale ${locale} don't contain "plural-forms" in headers`,
-    );
     return defaultPluralFunction;
   }
 
   const pluralExecRes = /plural=(.+?)(;|\n|\r|$)/gim.exec(pluralForms);
   if (!pluralExecRes || !pluralExecRes[1]) {
-    warn(
-      `Translations for locale ${locale} have invalid "plural-forms" in headers`,
-    );
     return defaultPluralFunction;
   }
 
