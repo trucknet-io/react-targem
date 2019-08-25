@@ -19,13 +19,20 @@ export function findLocale(
 export function getBrowserLocale(
   supportedLocales: string[],
   fallbackLocale?: string,
-) {
+): string {
   let browserLocale: string | undefined;
-  if (typeof window !== "undefined" && window.navigator.language) {
-    browserLocale = findLocale(supportedLocales, window.navigator.language);
-    if (!browserLocale && !fallbackLocale) {
-      browserLocale = findLocale(supportedLocales, "en");
+  if (typeof window !== "undefined" && window.navigator) {
+    const lang = (window.navigator.language ||
+      // @ts-ignore
+      window.navigator.userLanguage ||
+      // @ts-ignore
+      window.navigator.browserLanguage) as string | undefined;
+    if (lang) {
+      browserLocale = findLocale(supportedLocales, lang);
     }
+  }
+  if (!browserLocale && !fallbackLocale) {
+    browserLocale = findLocale(supportedLocales, "en");
   }
   return browserLocale || fallbackLocale || supportedLocales[0] || "en";
 }
