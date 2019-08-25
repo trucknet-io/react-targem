@@ -96,6 +96,23 @@ const { Provider, Consumer } = React.createContext<WithLocale>({
 
 export { Provider as RawLocaleProvider };
 
+let lastValue: WithLocale;
+
+export const translators = {
+  get t() {
+    return lastValue.t;
+  },
+  get tn() {
+    return lastValue.tn;
+  },
+  get tf() {
+    return lastValue.tf;
+  },
+  get tnf() {
+    return lastValue.tnf;
+  },
+};
+
 export class TargemProvider<AddProps> extends React.PureComponent<
   TargemProviderProps<AddProps>
 > {
@@ -175,7 +192,7 @@ export class TargemProvider<AddProps> extends React.PureComponent<
     const direction = this.getDirection(locale, propsDirection);
     const catalogs = this.getCatalogs(propsTranslations);
 
-    return {
+    const value = {
       locale,
       direction,
       t: t(catalogs, locale),
@@ -183,6 +200,8 @@ export class TargemProvider<AddProps> extends React.PureComponent<
       tf: tf(catalogs, locale),
       tnf: tnf(catalogs, locale),
     };
+    lastValue = value;
+    return value;
   }
 }
 
