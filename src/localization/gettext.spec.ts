@@ -38,26 +38,24 @@ return ((n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14)
     const func = getPluralFunction("ru", pot);
 
     expect(func.toString()).toEqual(defaultPluralFunction.toString());
-    expect(mockWarn).toBeCalledTimes(1);
   });
 
   test("returns default plural if plural-forms is invalid/insecure", () => {
     const pot1: ParsedPot = createPluralPot("nplurals=3;");
     const func1 = getPluralFunction("ru", pot1);
     expect(func1.toString()).toEqual(defaultPluralFunction.toString());
-    expect(mockWarn).toBeCalledTimes(1);
 
     const pot2: ParsedPot = createPluralPot("nplurals=3;plural=(m == 3)");
     const func2 = getPluralFunction("ru", pot2);
     expect(func2.toString()).toEqual(defaultPluralFunction.toString());
-    expect(mockWarn).toBeCalledTimes(2);
+    expect(mockWarn).toBeCalledTimes(1);
 
     const pot3: ParsedPot = createPluralPot(
       `nplurals=3;plural=(document.cookie = "")`,
     );
     const func3 = getPluralFunction("ru", pot3);
     expect(func3.toString()).toEqual(defaultPluralFunction.toString());
-    expect(mockWarn).toBeCalledTimes(3);
+    expect(mockWarn).toBeCalledTimes(2);
   });
 });
 
