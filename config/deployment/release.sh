@@ -11,7 +11,7 @@ git config gitflow.release.finish.message "Release %tag%"
 
 if [[ $# -eq 0 ]] ; then
     echo 'You need to specify version (patch/minor/major)'
-    exit 0
+    exit 1
 fi
 
 # Getting the version number
@@ -24,7 +24,7 @@ git checkout -- package-lock.json || exit "$?"
 
 if [ "$VERSION" = "" ]; then
     echo "Failed to take version"
-    exit 0
+    exit 1
 fi
 
 echo -n "Version will be $VERSION, continue? (y/n)?"
@@ -33,15 +33,8 @@ read answer
 if echo "$answer" | grep -iq "^y" ;then
     echo "Lets'go!"
 else
-    exit 0
+    exit 1
 fi
-
-# Pulling latest changes
-
-git checkout master || exit "$?"
-git pull || exit "$?"
-git checkout develop || exit "$?"
-git pull || exit "$?"
 
 # Doing release
 
