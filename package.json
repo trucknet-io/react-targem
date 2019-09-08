@@ -1,6 +1,6 @@
 {
   "name": "react-targem",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "A React library for efficiently implementing Gettext localization",
   "main": "./dist/bundles/index.umd.js",
   "module": "./dist/esm5/index.js",
@@ -42,8 +42,10 @@
     "size": "node config/file-size ./dist/bundles/index.min.mjs ./dist/bundles/index.umd.min.js",
     "serve": "ws --directory dev/www --port 3000 --spa index.html",
     "clean": "rimraf 'node_modules/.cache' '.awcache' 'dist'",
-    "prerelease": "npm run build",
+    "pull-changes": "git checkout master && git pull && git checkout develop && git pull",
+    "prerelease": "npm run pull-changes && npm run build",
     "release": "./config/deployment/release.sh",
+    "postrelease": "npm publish",
     "test": "jest --detectOpenHandles",
     "test:ci": "npm run test -- --coverage"
   },
