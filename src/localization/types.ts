@@ -1,7 +1,7 @@
 export type LocaleDirection = "ltr" | "rtl";
 
 export type GettextTranslation = {
-  msgid: string;
+  msgid?: string;
   msgid_plural?: string;
   msgctxt?: string;
   msgstr: string[];
@@ -25,7 +25,7 @@ export type PotHeaders = {
 };
 
 export type ParsedPot = {
-  charset: string;
+  charset?: string;
   headers: PotHeaders;
   translations: { [msgctxt: string]: { [msgid: string]: GettextTranslation } };
 };
