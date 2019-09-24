@@ -1,12 +1,11 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Sun Aug 18 2019 11:36:20 GMT+0300 (Eastern European "
-"Summer Time)\n"
+"POT-Creation-Date: Tue Sep 24 2019 11:59:34 GMT+0300 (Israel Daylight Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"Project-Id-Version: react-targem 1.0.0\n"
+"Project-Id-Version: react-targem 1.5.3\n"
 "PO-Revision-Date: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,17 +22,27 @@ msgid "Hello, {{ name }}!"
 msgstr "Здарова, {{ name }}!"
 
 #: dev/src/layouts/Body.tsx:24
+#: dev/src/layouts/Body.tsx:33
+#: dev/src/layouts/Body.tsx:42
 msgid "There is one line of code"
 msgid_plural "There are {{ count }} lines of code"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Тут одна строчка кода"
+msgstr[1] "Здесь {{ count }} строчки кода"
+msgstr[2] "Здесь {{ count }} строчек кода"
 
-#: dev/src/layouts/Body.tsx:33
+#: dev/src/layouts/Body.tsx:51
 msgid "There is {{ count }} line of code"
 msgid_plural "There are {{ count }} lines of code"
-msgstr[0] "Тут есть {{ count }} строчка кода"
-msgstr[1] "Здесь есть {{ count }} строчек кода"
+msgstr[0] "Тут {{ count }} строчка кода"
+msgstr[1] "Здесь {{ count }} строчки кода"
+msgstr[2] "Здесь {{ count }} строчек кода"
 
 #: dev/src/layouts/Inner.tsx:12
 msgid "Current locale"
 msgstr "Текущая локаль"
+
+#: dev/src/layouts/Inner.tsx:17
+msgid "There is {{ count }} button"
+msgid_plural "There are {{ count }} buttons"
+msgstr[0] ""
+msgstr[1] ""
