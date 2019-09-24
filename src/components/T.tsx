@@ -78,7 +78,7 @@ export class TBase extends React.PureComponent<WithLocale & TProps> {
     const translation = translate(
       message || children || "",
       messagePlural || "",
-      count || 1,
+      count == null ? 1 : count,
       scope,
       context,
     );
