@@ -1,12 +1,11 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Sun Aug 18 2019 11:36:20 GMT+0300 (Eastern European "
-"Summer Time)\n"
+"POT-Creation-Date: Tue Sep 24 2019 11:18:02 GMT+0300 (Israel Daylight Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? 2 "
 ": 3);\n"
-"Project-Id-Version: react-targem 1.0.0\n"
+"Project-Id-Version: react-targem 1.5.3\n"
 "PO-Revision-Date: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,12 +22,13 @@ msgid "Hello, {{ name }}!"
 msgstr ""
 
 #: dev/src/layouts/Body.tsx:24
+#: dev/src/layouts/Body.tsx:33
 msgid "There is one line of code"
 msgid_plural "There are {{ count }} lines of code"
 msgstr[0] ""
 msgstr[1] ""
 
-#: dev/src/layouts/Body.tsx:33
+#: dev/src/layouts/Body.tsx:42
 msgid "There is {{ count }} line of code"
 msgid_plural "There are {{ count }} lines of code"
 msgstr[0] ""

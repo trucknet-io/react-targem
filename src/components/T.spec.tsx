@@ -78,6 +78,23 @@ describe("<T />", () => {
     ).toBeInTheDocument();
   });
 
+  test("translates pluralized message with count=0", () => {
+    const res = render(
+      <Provider locale="en-GB">
+        <T
+          message="Dear, {{ name }}. You have one unread message"
+          messagePlural="Dear, {{ name }}. You have {{ count }} unread messages"
+          context="someContext"
+          count={0}
+          scope={{ name: "Alex" }}
+        />
+      </Provider>,
+    );
+    expect(
+      res.getByText("Dear, Alex. You have 0 unread messages"),
+    ).toBeInTheDocument();
+  });
+
   test("translates message inside TargemStatefulProvider", () => {
     const res = render(
       <StatefulProvider>
