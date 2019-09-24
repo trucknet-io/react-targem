@@ -38,6 +38,15 @@ class Body extends React.PureComponent {
         </h1>
 
         <h1>
+          Plural `count=2`:{" "}
+          <T
+            message="There is one line of code"
+            messagePlural="There are {{ count }} lines of code"
+            count={2}
+          />
+        </h1>
+
+        <h1>
           Plural `count=3000.6`:{" "}
           <T
             message="There is {{ count }} line of code"

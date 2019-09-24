@@ -1,6 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CaseSensitivePathsWebpackPlugin = require("case-sensitive-paths-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -29,7 +29,7 @@ const DEV = process.env.NODE_ENV !== "production";
 const plugins = [
   new WebpackBar(),
   new webpack.ContextReplacementPlugin(/date-fns[/\\]locale$/, LANGUAGES_REGEX),
-  new CleanWebpackPlugin([paths.output]),
+  new CleanWebpackPlugin(),
   new CopyWebpackPlugin([paths.static]),
   new CaseSensitivePathsWebpackPlugin({ debug: false }),
   new HtmlWebpackPlugin({
