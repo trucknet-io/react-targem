@@ -1,6 +1,6 @@
 const { promisify } = require("util");
 const execAsync = promisify(require("child_process").exec);
-const yesno = require("yesno");
+const readline = require("readline");
 
 release()
   .then(() => {
@@ -38,11 +38,11 @@ async function release() {
   let version = await exec(`npm --no-git-tag-version version ${versionArg}`);
   // Converts v10.234.43\n to 10.234.43
   version = version.slice(1).slice(0, -1);
-  process.env.VERSION = version;
 
   if (!version) {
     throw new Error("Failed to take version");
   }
+  process.env.VERSION = version;
 
   await exec(`git checkout -- package.json`);
   await exec(`git checkout -- package-lock.json`);
@@ -71,5 +71,16 @@ function exec(...args) {
 }
 
 function askYesNo(question) {
-  return yesno({ question });
+  return new Promise((resolve) => {
+    const rlInterface = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
+    rlInterface.question(question, (answer) => {
+      const positiveAnswers = ["yes", "y"];
+      rlInterface.close();
+      resolve(positiveAnswers.includes(answer.trim().toLowerCase()));
+    });
+  });
 }

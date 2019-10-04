@@ -108,7 +108,6 @@
     "webpack-config-utils": "^2.3.1",
     "webpack-dev-server": "^3.8.1",
     "webpackbar": "^4.0.0",
-    "yesno": "^0.3.1",
     "zlib": "^1.0.5"
   },
   "peerDependencies": {
