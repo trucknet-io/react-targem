@@ -44,7 +44,7 @@
     "clean": "rimraf 'node_modules/.cache' '.awcache' 'dist'",
     "pull-changes": "git checkout master && git pull && git checkout develop && git pull",
     "prerelease": "npm run pull-changes && npm run build",
-    "release": "./config/deployment/release.sh",
+    "release": "node ./config/release.js",
     "postrelease": "npm publish",
     "test": "jest --detectOpenHandles",
     "test:ci": "jest --detectOpenHandles --coverage --coverageReporters=text-lcov | coveralls"
@@ -108,6 +108,7 @@
     "webpack-config-utils": "^2.3.1",
     "webpack-dev-server": "^3.8.1",
     "webpackbar": "^4.0.0",
+    "yesno": "^0.3.1",
     "zlib": "^1.0.5"
   },
   "peerDependencies": {

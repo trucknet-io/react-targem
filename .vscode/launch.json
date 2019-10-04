@@ -19,6 +19,17 @@
       "port": 9229
     },
     {
+      "name": "Release",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "${workspaceRoot}/config/release.js",
+        "1.5.5"
+      ],
+      "port": 9229
+    },
+    {
       "name": "Debug Jest Test",
       "type": "node",
       "request": "launch",
