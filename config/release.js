@@ -1,6 +1,4 @@
-const { promisify } = require("util");
-const execAsync = promisify(require("child_process").exec);
-const readline = require("readline");
+const { exec, yesNo } = require("./helpers");
 
 release()
   .then(() => {
@@ -47,7 +45,7 @@ async function release() {
   await exec(`git checkout -- package.json`);
   await exec(`git checkout -- package-lock.json`);
 
-  const agreed = await askYesNo(`Version will be ${version}, continue? (y/n)`);
+  const agreed = await yesNo(`Version will be ${version}, continue? (y/n)`);
   if (!agreed) {
     throw new Error("Release aborted");
   } else {
@@ -64,23 +62,4 @@ async function release() {
 
   // Pushing to repo
   await exec(`git push --all --follow-tags`);
-}
-
-function exec(...args) {
-  return execAsync(...args).then((res) => res.stdout);
-}
-
-function askYesNo(question) {
-  return new Promise((resolve) => {
-    const rlInterface = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-
-    rlInterface.question(question, (answer) => {
-      const positiveAnswers = ["yes", "y"];
-      rlInterface.close();
-      resolve(positiveAnswers.includes(answer.trim().toLowerCase()));
-    });
-  });
 }
