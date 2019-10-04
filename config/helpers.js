@@ -1,3 +1,9 @@
+const fs = require("fs");
+const path = require("path");
+const readline = require("readline");
+const { promisify } = require("util");
+const execAsync = promisify(require("child_process").exec);
+
 module.exports = {
   camelCaseToDash,
   dashToCamelCase,
@@ -5,6 +11,9 @@ module.exports = {
   pascalCase,
   normalizePackageName,
   getOutputFileName,
+  exec,
+  yesNo,
+  moveFile,
 };
 
 /**
@@ -56,4 +65,27 @@ function normalizePackageName(rawPackageName) {
  */
 function getOutputFileName(fileName, isProd = false) {
   return isProd ? fileName.replace(/\.js$/, ".min.js") : fileName;
+}
+
+function exec(...args) {
+  return execAsync(...args).then((res) => res.stdout);
+}
+
+function yesNo(question) {
+  return new Promise((resolve) => {
+    const rlInterface = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
+    rlInterface.question(question, (answer) => {
+      const positiveAnswers = ["yes", "y"];
+      rlInterface.close();
+      resolve(positiveAnswers.includes(answer.trim().toLowerCase()));
+    });
+  });
+}
+
+function moveFile(oldPath, newPath) {
+  fs.renameSync(path.join(__dirname, oldPath), path.join(__dirname, newPath));
 }
