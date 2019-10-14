@@ -15,7 +15,7 @@ describe("warn()", () => {
 
     warn("Alert!");
     expect(spy).toBeCalledWith(`react-targem: Alert!
-***This message is shown only when NODE_ENV !== "production"***`);
+***This message is shown only when NODE_ENV is "development" and DISABLE_TARGEM_WARNINGS is not set***`);
     spy.mockClear();
   });
 
