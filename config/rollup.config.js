@@ -23,6 +23,7 @@ const {
  */
 
 const env = process.env.NODE_ENV || "development";
+const disableWarnings = !!process.env.DISABLE_TARGEM_WARNINGS;
 const { ifProduction } = getIfUtils(env);
 
 const LIB_NAME = pascalCase(normalizePackageName(pkg.name));
@@ -53,6 +54,16 @@ const plugins = /** @type {Plugin[]} */ ([
   // Allow json resolution
   json(),
 
+  // Replace env vars with actual values before other plugins kick in
+  // to allow proper optimizations and dead code elimination
+  ifProduction(
+    replace({
+      exclude: "node_modules/**",
+      "process.env.NODE_ENV": JSON.stringify(env),
+      "process.env.DISABLE_TARGEM_WARNINGS": JSON.stringify(disableWarnings),
+    }),
+  ),
+
   // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
   commonjs(),
 
@@ -63,12 +74,6 @@ const plugins = /** @type {Plugin[]} */ ([
 
   // Resolve source maps to the original source
   sourceMaps(),
-
-  // properly set process.env.NODE_ENV within `./environment.ts`
-  replace({
-    exclude: "node_modules/**",
-    "process.env.NODE_ENV": JSON.stringify(env),
-  }),
 ]);
 
 /**
