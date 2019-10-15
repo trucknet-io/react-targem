@@ -1,3 +1,5 @@
+import { warn } from "./debug";
+
 export function findLocale(
   supportedLocales: string[],
   locale: string,
@@ -7,7 +9,7 @@ export function findLocale(
   }
   for (const localeToMatch of supportedLocales) {
     if (localeToMatch.includes(locale.split("-")[0])) {
-      console.warn(
+      warn(
         `Locale ${locale} was not found. Using ${localeToMatch} as a fallback`,
       );
       return localeToMatch;

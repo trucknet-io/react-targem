@@ -8,7 +8,9 @@ jest.mock("./constants", () => ({
 
 describe("warn()", () => {
   test("outputs warning to the console in debug mode", () => {
-    const spy = jest.spyOn(global.console, "warn");
+    const spy = jest
+      .spyOn(global.console, "warn")
+      .mockImplementationOnce(() => undefined);
     const { warn } = jest.requireActual("./debug") as {
       warn(msg: string): void;
     };
@@ -21,7 +23,9 @@ describe("warn()", () => {
 
   test("does nothing in production mode", () => {
     DEBUG = false;
-    const spy = jest.spyOn(global.console, "warn");
+    const spy = jest
+      .spyOn(global.console, "warn")
+      .mockImplementationOnce(() => undefined);
     const { warn } = jest.requireActual("./debug") as {
       warn(msg: string): void;
     };

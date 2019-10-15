@@ -35,7 +35,7 @@
     "lint:tslint": "tslint -c tslint.json -p ./dev/tsconfig.json --fix",
     "start": "env-cmd -e development webpack-dev-server --config dev/webpack.config.js --hot",
     "prebuild": "npm run clean",
-    "build": "npm run build:tsc && rollup -c config/rollup.config.js && rollup -c config/rollup.config.js --environment NODE_ENV:production",
+    "build": "env-cmd -e production npm run build:tsc && rollup -c config/rollup.config.js && rollup -c config/rollup.config.js",
     "build:tsc": "tsc -p ./config/tsconfig.build.json && tsc -p ./config/tsconfig.build.json --target es2018 --outDir dist/esm2015",
     "postbuild": "npm run rename-mjs && npm run size",
     "rename-mjs": "node ./config/renameMjs.js",

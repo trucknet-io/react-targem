@@ -1,18 +1,11 @@
+import { warn } from "./debug";
 import { findLocale } from "./locale";
 
 const supportedLocales = ["en-GB", "en-AU"];
 
-let consoleWarnSpy: jest.SpyInstance;
-
 describe("findLocale", () => {
-  beforeAll(() => {
-    consoleWarnSpy = jest
-      .spyOn(global.console, "warn")
-      .mockImplementation(() => undefined);
-  });
-
   afterEach(() => {
-    consoleWarnSpy.mockClear();
+    (warn as jest.Mock).mockClear();
   });
 
   it("should return en-GB for en-GB", () => {
@@ -25,12 +18,12 @@ describe("findLocale", () => {
 
   it("should return en-GB for en and do a warning", () => {
     expect(findLocale(supportedLocales, "en")).toBe("en-GB");
-    expect(consoleWarnSpy).toBeCalledTimes(1);
+    expect(warn).toBeCalledTimes(1);
   });
 
   it("should return en-GB for en-US and do a warning", () => {
     expect(findLocale(supportedLocales, "en-US")).toBe("en-GB");
-    expect(consoleWarnSpy).toBeCalledTimes(1);
+    expect(warn).toBeCalledTimes(1);
   });
 
   it("Should return undefined if not found", () => {
