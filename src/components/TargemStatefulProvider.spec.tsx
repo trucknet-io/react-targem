@@ -9,8 +9,8 @@ import {
 } from "./TargemStatefulProvider";
 
 describe("<TargemProvider/>", () => {
-  const MyComponent = withLocale<WithLocaleStateful>(
-    ({ changeLocale, t, tn, locale, direction }) => {
+  const MyComponent = withLocale(
+    ({ changeLocale, t, tn, locale, direction }: WithLocaleStateful) => {
       const changeToHe = () => {
         changeLocale("he");
       };
