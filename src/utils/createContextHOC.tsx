@@ -21,7 +21,7 @@ export const createContextHOC = <Context extends object>(
         return <Consumer>{this.renderComponent}</Consumer>;
       }
 
-      private renderComponent = (ctx: Context) => {
+      public renderComponent = (ctx: Context) => {
         const newProps = { ...ctx, ...this.props };
         return <Component {...(newProps as P)} />;
       };
