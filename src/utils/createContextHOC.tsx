@@ -11,11 +11,11 @@ export type ContextHOC<
 export const createContextHOC = <Context extends object>(
   Consumer: React.Consumer<Context>,
 ) => {
-  const withContext = <P extends Context>(
-    Component: React.ComponentType<P>,
+  const withContext = <P extends Context, DP extends object>(
+    Component: React.ComponentType<P> & { defaultProps?: DP },
   ) => {
     return class WithContextHOC extends React.Component<
-      Omit<P, keyof Context>
+      Omit<P, keyof Context> & Partial<Context>
     > {
       public render() {
         return <Consumer>{this.renderComponent}</Consumer>;
