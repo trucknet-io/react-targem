@@ -23,10 +23,10 @@
   - [Features](#features)
   - [Installation](#installation)
   - [Usage](#usage)
-    - [`<TargemProvider/>`](#targemprovider)
-    - [`<TargemStatefulProvider/>`](#targemstatefulprovider)
-    - [`<T/>`](#t)
-    - [`withLocale(Component)`](#withlocalecomponent)
+    - [&lt;TargemProvider/&gt;](#lttargemprovidergt)
+    - [&lt;TargemStatefulProvider/&gt;](#lttargemstatefulprovidergt)
+    - [&lt;T/&gt;](#lttgt)
+    - [withLocale(Component)](#withlocalecomponent)
     - [Locale switching](#locale-switching)
   - [Size](#size)
   - [See also](#see-also)
@@ -96,6 +96,12 @@ function App({ name, numPotatoes }) {
           componentProps={{ href="http://potatoes.com/buy" }}
         />
         {/* => <a href="http://potatoes.com/buy">לפי עוד תפוחי אדמה כאן!</a> */}
+
+        <T
+          count={1234.5678}
+          formatNumbers={{ maximumFractionDigits: 2 }}
+        />
+        {/* => <span>1 234,57</span> */}
       </div>
     </TargemProvider>
   )
@@ -164,7 +170,9 @@ Exposes a set of props that make it easy to translate and interpolate your conte
 - `context` _(optional: string)_ – Translation context (`msgctxt` in pot).
 - `component` _(optional: React.ReactType)_ – Component or element type to wrap your translation string with.
 - `componentProps` _(optional: Object)_ – Props to be passed to your wrapper `component`.
-- `formatNumbers` _(optional: boolean = false)_ – Whether to format `count` and all numbers in `scope` object using [Intl.NumberFormat](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat). If browser (or Node) doesn't support `Intl.NumberFormat` then formatting fallbacks to `Number.prototype.toLocaleString()`.
+- `formatNumbers` _(optional: boolean | Intl.NumberFormatOptions = false)_ – Whether to format `count` and all numbers in `scope` object using [Intl.NumberFormat](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat). If browser (or Node) doesn't support `Intl.NumberFormat` then formatting fallbacks to `Number.prototype.toLocaleString()`.  
+   You can omit `message` prop and use `count` with `formatNumbers` to just format a number like this:\
+  `<T count={1234.5678} formatNumbers={{ maximumFractionDigits=2 }} />`
 
 ---
 
@@ -226,13 +234,13 @@ react-targem makes it possible to change locale and have all the application's t
 <!--size-start-->
 
 ```
-      5.59 kB: index.min.mjs
-      2.39 kB: index.min.mjs.gz
-      2.16 kB: index.min.mjs.br
+         6 kB: index.min.mjs
+      2.52 kB: index.min.mjs.gz
+      2.27 kB: index.min.mjs.br
 
-      7.13 kB: index.umd.min.js
-      2.81 kB: index.umd.min.js.gz
-      2.54 kB: index.umd.min.js.br
+      7.53 kB: index.umd.min.js
+      2.94 kB: index.umd.min.js.gz
+      2.65 kB: index.umd.min.js.br
 ```
 
 <!--size-end-->

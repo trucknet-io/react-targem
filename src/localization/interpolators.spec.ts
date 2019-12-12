@@ -108,10 +108,14 @@ describe("createInterpolatorWithNumberFormat()", () => {
 
     const interpolateRu = createInterpolatorWithNumberFormat("ru");
     expect(formatSpy).toBeCalledWith("ru");
-    const ruStr = interpolateRu("Your score is: {{ score }}", {
-      score: 4000.6,
-    });
-    expect(ruStr).toBe("Your score is: 4 000,6");
+    const ruStr = interpolateRu(
+      "Your score is: {{ score }}",
+      {
+        score: 4000.6894,
+      },
+      { maximumFractionDigits: 2 },
+    );
+    expect(ruStr).toBe("Your score is: 4 000,69");
 
     formatSpy.mockClear();
   });

@@ -38,9 +38,10 @@ export const tf = (catalogs: GettextCatalogs, locale: string) => {
     message: string,
     scope: InterpolationScope = {},
     context?: string,
+    formatOptions?: Intl.NumberFormatOptions,
   ): string => {
     const translated = translate(catalogs, locale, message, context);
-    return interpolate(translated, scope);
+    return interpolate(translated, scope, formatOptions);
   };
 };
 
@@ -52,15 +53,12 @@ export const tnf = (catalogs: GettextCatalogs, locale: string) => {
     count: number,
     scope: InterpolationScope = {},
     context?: string,
+    formatOptions?: Intl.NumberFormatOptions,
   ): string => {
-    const translated = translate(
-      catalogs,
-      locale,
-      message,
-      context,
-      messagePlural,
-      count,
-    );
-    return interpolate(translated, { ...scope, count });
+    const translated =
+      message || messagePlural
+        ? translate(catalogs, locale, message, context, messagePlural, count)
+        : `{{ count }}`;
+    return interpolate(translated, { ...scope, count }, formatOptions);
   };
 };
