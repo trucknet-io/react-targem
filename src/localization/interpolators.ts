@@ -40,8 +40,12 @@ export function interpolateString(
 
 export function createInterpolatorWithNumberFormat(locale: string) {
   const formatter = getNumberFormatter(locale);
-  return (str: string, scope: InterpolationScope = {}): string => {
-    const newScope = formatNumbers(formatter, scope);
+  return (
+    str: string,
+    scope: InterpolationScope = {},
+    options?: Intl.NumberFormatOptions,
+  ): string => {
+    const newScope = formatNumbers(scope, formatter, options);
     return interpolateString(str, newScope);
   };
 }
@@ -60,21 +64,26 @@ function isTemplateVariable(str: string): boolean {
 const getNumberFormatter = memoizeOne(
   (locale: string): NumberFormatter => {
     if (typeof Intl === "undefined") {
-      return (n: number) => n.toLocaleString(locale);
+      return (num, options) => num.toLocaleString(locale, options);
     }
 
-    const numberFormat = new Intl.NumberFormat(locale);
-    return (n: number) => numberFormat.format(n);
+    const commonIntlFormat = new Intl.NumberFormat(locale);
+    return (num, options) => {
+      return options
+        ? new Intl.NumberFormat(locale, options).format(num)
+        : commonIntlFormat.format(num);
+    };
   },
 );
 
 function formatNumbers(
-  formatter: NumberFormatter,
   scope: InterpolationScope,
+  formatter: NumberFormatter,
+  options?: Intl.NumberFormatOptions,
 ): InterpolationScope {
   return Object.keys(scope).reduce((res: InterpolationScope, key) => {
     const value = scope[key];
-    res[key] = typeof value === "number" ? formatter(value) : value;
+    res[key] = typeof value === "number" ? formatter(value, options) : value;
     return res;
   }, {});
 }

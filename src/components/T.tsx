@@ -28,7 +28,7 @@ export type TProps<WrapperProps extends Object = any> = {
    * `Intl.NumberFormat`. If browser (or Node) doesn't support `Intl.NumberFormat`
    * then formatting fallbacks to `Number.prototype.toLocaleString()`.
    */
-  formatNumbers?: boolean;
+  formatNumbers?: boolean | Intl.NumberFormatOptions;
   /**
    * Plural version of the message (`msgid_plural` in .pot).
    */
@@ -56,7 +56,15 @@ export type TProps<WrapperProps extends Object = any> = {
        */
       message: string;
       children?: string;
-    });
+    }
+  // To allow just formatting the `count`
+  | {
+      message?: string;
+      children?: string;
+      count: number;
+      formatNumbers: boolean | Intl.NumberFormatOptions;
+    }
+);
 
 export class TBase extends React.PureComponent<WithLocale & TProps> {
   public render() {
@@ -81,6 +89,7 @@ export class TBase extends React.PureComponent<WithLocale & TProps> {
       count == null ? 1 : count,
       scope,
       context,
+      typeof formatNumbers === "boolean" ? undefined : formatNumbers,
     );
 
     return Component ? (

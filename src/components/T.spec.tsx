@@ -131,19 +131,19 @@ describe("<T />", () => {
     expect(res.getByText("שלום עולם!")).toBeInTheDocument();
   });
 
-  test("formats count and scope numbers when props.formatNumbers === true", () => {
+  test("formats count and scope numbers when props.formatNumbers is passed", () => {
     const res = render(
       <Provider locale="en-GB">
         <T
           message="You have one answer, your score is: {{ score }}"
           count={5000}
-          scope={{ score: 1000.5 }}
-          formatNumbers
+          scope={{ score: 1000.5678 }}
+          formatNumbers={{ maximumFractionDigits: 2 }}
         />
       </Provider>,
     );
     expect(
-      res.getByText("You have 5,000 answers, your score is: 1,000.5"),
+      res.getByText("You have 5,000 answers, your score is: 1,000.57"),
     ).toBeInTheDocument();
 
     res.rerender(
@@ -151,13 +151,37 @@ describe("<T />", () => {
         <T
           message="You have one answer, your score is: {{ score }}"
           count={5000}
-          scope={{ score: 1000.5 }}
+          scope={{ score: 1000.5689 }}
           formatNumbers
         />
       </Provider>,
     );
+    // `maximumFractionDigits: 3` by default in `Intl.NumberFormatOptions`
     expect(
-      res.getByText("У Вас 5 000 ответов, Ваш счёт: 1 000,5"),
+      res.getByText("У Вас 5 000 ответов, Ваш счёт: 1 000,569"),
     ).toBeInTheDocument();
+  });
+
+  test("allows to only format number with optional NumberFormat options", () => {
+    const res = render(
+      <Provider locale="en-GB">
+        <T count={5000} formatNumbers />
+      </Provider>,
+    );
+    expect(res.getByText("5,000")).toBeInTheDocument();
+
+    res.rerender(
+      <Provider locale="en-GB">
+        <T count={5000.3456} formatNumbers={{ maximumFractionDigits: 0 }} />
+      </Provider>,
+    );
+    expect(res.getByText("5,000")).toBeInTheDocument();
+
+    res.rerender(
+      <Provider locale="ru">
+        <T count={5000.12345} formatNumbers={{ maximumFractionDigits: 2 }} />
+      </Provider>,
+    );
+    expect(res.getByText("5 000,12")).toBeInTheDocument();
   });
 });

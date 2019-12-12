@@ -48,4 +48,7 @@ export type InterpolationScope = {
   [key: string]: string | number | boolean | undefined;
 };
 
-export type NumberFormatter = (num: number) => string;
+export type NumberFormatter = (
+  num: number,
+  options?: Intl.NumberFormatOptions,
+) => string;

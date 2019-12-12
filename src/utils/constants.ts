@@ -16,9 +16,7 @@ export const RTL_LOCALES = [
 let DEBUG: boolean = false;
 if (typeof process !== "undefined") {
   DEBUG = !!(
-    process &&
-    process.env &&
-    process.env.NODE_ENV === "development" &&
+    process?.env?.NODE_ENV === "development" &&
     !process.env.DISABLE_TARGEM_WARNINGS
   );
 }
