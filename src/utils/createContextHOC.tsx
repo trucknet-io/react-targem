@@ -21,6 +21,7 @@ export const createContextHOC = <Context extends object>(
         return <Consumer>{this.renderComponent}</Consumer>;
       }
 
+      // TS: Property 'renderComponent' of exported class expression may not be private or protected.
       public renderComponent = (ctx: Context) => {
         const newProps = { ...ctx, ...this.props };
         return <Component {...(newProps as P)} />;

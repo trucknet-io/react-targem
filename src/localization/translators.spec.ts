@@ -45,16 +45,24 @@ describe("tn()", () => {
 
 describe("tf()", () => {
   test("translates and interpolates message, also formats numbers", () => {
-    const str = tf(catalogs, "ru")("Your score is: {{ score }}", {
+    const str1 = tf(catalogs, "ru")("Your score is: {{ score }}", {
       score: 12345.6,
     });
-    expect(str).toEqual("Ваш счёт: 12 345,6");
+    expect(str1).toEqual("Ваш счёт: 12 345,6");
+
+    const str2 = tf(catalogs, "ru")(
+      "{{ score }}",
+      { score: 12345.62 },
+      undefined,
+      { maximumFractionDigits: 0 },
+    );
+    expect(str2).toEqual("12 346");
   });
 });
 
 describe("tnf()", () => {
   test("translates and interpolates pluralized message, also formats numbers", () => {
-    const str = tnf(catalogs, "ru")(
+    const str1 = tnf(catalogs, "ru")(
       "You have one answer, your score is: {{ score }}",
       "You have {{ count }} answers, your score is: {{ score }}",
       3456.7,
@@ -62,6 +70,11 @@ describe("tnf()", () => {
         score: 4567.8,
       },
     );
-    expect(str).toEqual("У Вас 3 456,7 ответов, Ваш счёт: 4 567,8");
+    expect(str1).toEqual("У Вас 3 456,7 ответов, Ваш счёт: 4 567,8");
+
+    const str2 = tnf(catalogs, "ru")("", "", 3456.789, {}, undefined, {
+      maximumFractionDigits: 2,
+    });
+    expect(str2).toEqual("3 456,79");
   });
 });

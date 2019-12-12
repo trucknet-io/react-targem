@@ -69,13 +69,7 @@ export function getTranslation(
   msgctxt?: string,
 ): GettextTranslation {
   const context = msgctxt || "";
-  return (
-    catalogs &&
-    catalogs[locale] &&
-    catalogs[locale].translations &&
-    catalogs[locale].translations[context] &&
-    catalogs[locale].translations[context][msgid]
-  );
+  return catalogs?.[locale]?.translations?.[context]?.[msgid];
 }
 
 // This export is needed because when you run `npm run test:ci`
@@ -87,10 +81,7 @@ export function getPluralFunction(
   locale: string,
   translations: ParsedPot,
 ): PluralFunction {
-  const pluralForms =
-    translations &&
-    translations.headers &&
-    translations.headers["plural-forms"];
+  const pluralForms = translations?.headers?.["plural-forms"];
 
   if (!pluralForms) {
     return defaultPluralFunction;
@@ -121,8 +112,7 @@ export function getPluralIndex(
   locale: string,
   count: number,
 ): number {
-  const pluralFunc =
-    catalogs && catalogs[locale] && catalogs[locale].pluralFunction;
+  const pluralFunc = catalogs?.[locale]?.pluralFunction;
   if (!pluralFunc) {
     return 0;
   }
