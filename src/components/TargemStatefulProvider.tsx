@@ -11,7 +11,7 @@ import {
 
 export type WithLocaleStateful = Required<WithLocale>;
 
-class TargemStatefulBase extends TargemProvider<{
+export class TargemStatefulBase extends TargemProvider<{
   changeLocale(locale: string): void;
 }> {
   protected getValue = memoizeOne(
