@@ -71,17 +71,18 @@ describe("interpolateString()", () => {
     });
     expect(result3).toEqual("Rich kids have NaNnies");
 
-    // @ts-ignore
     const result4 = interpolateString(`Say "object": {{ obj }}`, {
+      // @ts-ignore
       obj: { objectz: "Awbyect" },
     });
     expect(result4).toEqual(`Say "object": [object Object]`);
 
-    // @ts-ignore
+    // tslint:disable: no-function-expression
     const result5 = interpolateString("Dance to the {{ func }}", {
-      // tslint:disable-next-line: no-function-expression
+      // @ts-ignore
       func: function beat() {},
     });
+    // tslint:enable: no-function-expression
     expect(result5).toEqual("Dance to the function beat() { }");
   });
 });
