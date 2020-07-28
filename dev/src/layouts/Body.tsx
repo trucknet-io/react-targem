@@ -3,11 +3,13 @@ import React from "react";
 import { T } from "@lib";
 
 import Inner from "./Inner";
+import InnerFC from "./InnerFC";
 
 class Body extends React.PureComponent {
   public render() {
     return (
       <div>
+        <InnerFC />
         <Inner />
 
         <h1>

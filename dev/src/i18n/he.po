@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: react-targem 1.6.1\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "POT-Creation-Date: Tue Sep 24 2019 11:59:34 GMT+0300 (Israel Daylight Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? 2 "
-": 3);\n"
-"Project-Id-Version: react-targem 1.5.3\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? 2 : "
+"3);\n"
 "PO-Revision-Date: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -13,33 +13,35 @@ msgstr ""
 "Last-Translator: \n"
 "Language: he\n"
 
-#: dev/src/layouts/Body.tsx:14
+#: dev/src/layouts/Body.tsx:
 msgid "Hello, World!"
 msgstr ""
 
-#: dev/src/layouts/Body.tsx:19
+#: dev/src/layouts/Body.tsx:
 msgid "Hello, {{ name }}!"
 msgstr ""
 
-#: dev/src/layouts/Body.tsx:24
-#: dev/src/layouts/Body.tsx:33
-#: dev/src/layouts/Body.tsx:42
+#: dev/src/layouts/Body.tsx:
+#: dev/src/layouts/Body.tsx:
+#: dev/src/layouts/Body.tsx:
 msgid "There is one line of code"
 msgid_plural "There are {{ count }} lines of code"
 msgstr[0] ""
 msgstr[1] ""
 
-#: dev/src/layouts/Body.tsx:51
+#: dev/src/layouts/Body.tsx:
 msgid "There is {{ count }} line of code"
 msgid_plural "There are {{ count }} lines of code"
 msgstr[0] ""
 msgstr[1] ""
 
-#: dev/src/layouts/Inner.tsx:12
+#: dev/src/layouts/Inner.tsx:
+#: dev/src/layouts/InnerFC.tsx:
 msgid "Current locale"
 msgstr ""
 
-#: dev/src/layouts/Inner.tsx:17
+#: dev/src/layouts/Inner.tsx:
+#: dev/src/layouts/InnerFC.tsx:
 msgid "There is {{ count }} button"
 msgid_plural "There are {{ count }} buttons"
 msgstr[0] ""
