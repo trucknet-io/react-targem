@@ -1,5 +1,5 @@
 import memoizeOne from "memoize-one";
-import React from "react";
+import React, { useContext } from "react";
 
 import {
   LocaleDirection,
@@ -85,7 +85,7 @@ export type DefaultTargemProviderProps = Pick<
   "controlBodyDir" | "detectLocale"
 >;
 
-const { Provider, Consumer } = React.createContext<WithLocale>({
+const TargemContext = React.createContext<WithLocale>({
   direction: "ltr",
   locale: "en",
   t: () => "",
@@ -93,6 +93,8 @@ const { Provider, Consumer } = React.createContext<WithLocale>({
   tf: () => "",
   tnf: () => "",
 });
+
+const { Provider, Consumer } = TargemContext;
 
 export { Provider as RawLocaleProvider };
 
@@ -206,5 +208,6 @@ export class TargemProvider<AddProps> extends React.PureComponent<
 }
 
 export const withLocale = createContextHOC(Consumer);
+export const useLocale = () => useContext(TargemContext);
 
 export default TargemProvider;
