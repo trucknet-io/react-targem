@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import * as React from "react";
 
 import translationsJson from "@test-utils/fixtures/translations.json";
-import { TargemProvider, withLocale } from "./TargemProvider";
+import { TargemProvider, useLocale, withLocale } from "./TargemProvider";
 
 describe("<TargemProvider/>", () => {
   const MyComponent = withLocale(({ t, tn, locale, direction }) => (
@@ -133,5 +133,46 @@ describe("<TargemProvider/>", () => {
     );
     expect(res.baseElement).toHaveAttribute("dir", "ltr");
     expect(setBodyDir).toBeCalledWith("rtl");
+  });
+});
+
+describe("useLocale", () => {
+  const MyComponent = () => {
+    const { locale, t, tn, direction } = useLocale();
+
+    return (
+      <div>
+        <span>
+          {t("Current locale")}: {locale}
+        </span>
+        <span>Current direction: {direction}</span>
+        <span>{t("Hello, World!")}</span>
+        <span>
+          {tn(
+            "Dear, {{ name }}. You have one unread message",
+            "Dear, {{ name }}. You have {{ count }} unread messages",
+            5,
+            { name: "אלכס" },
+            "someContext",
+          )}
+        </span>
+      </div>
+    );
+  };
+
+  test("provides child components with translation context", () => {
+    const res = render(
+      <TargemProvider locale="he" translations={translationsJson}>
+        <MyComponent />
+      </TargemProvider>,
+    );
+
+    expect(res.getByText("אזור נוכחי: he")).toBeInTheDocument();
+    expect(res.getByText("Current direction: rtl")).toBeInTheDocument();
+    expect(res.getByText("שלום עולם!")).toBeInTheDocument();
+    expect(
+      res.getByText("יקר, אלכס. יש לך 5 הודעות שלא נקראו"),
+    ).toBeInTheDocument();
+    expect(res.baseElement).toHaveAttribute("dir", "rtl");
   });
 });
