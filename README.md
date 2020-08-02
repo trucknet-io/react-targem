@@ -182,6 +182,12 @@ Exposes a set of props that make it easy to translate and interpolate your conte
 import { withLocale } from "react-targem";
 ```
 
+or as a hook
+
+```js
+import { useLocale } from "react-targem";
+```
+
 Provides `Component` with the `react-targem` context variables as props.
 
 **These props are:**
