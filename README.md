@@ -23,10 +23,10 @@
   - [Features](#features)
   - [Installation](#installation)
   - [Usage](#usage)
-    - [&lt;TargemProvider/&gt;](#lttargemprovidergt)
-    - [&lt;TargemStatefulProvider/&gt;](#lttargemstatefulprovidergt)
-    - [&lt;T/&gt;](#lttgt)
-    - [withLocale(Component)](#withlocalecomponent)
+    - [`<TargemProvider/>`](#targemprovider)
+    - [`<TargemStatefulProvider/>`](#targemstatefulprovider)
+    - [`<T/>`](#t)
+    - [`withLocale(Component)`](#withlocalecomponent)
     - [Locale switching](#locale-switching)
   - [Size](#size)
   - [See also](#see-also)
@@ -111,6 +111,20 @@ ReactDOM.render(
   <App name="אלכס" numPotatoes={Math.round(Math.random() * 3))} />,
   document.querySelector('.app-root')
 )
+```
+
+**_Important note:_** each locale-representing object in `translations` that you pass to `<TargemProvider/>` **must** contain valid `headers.plural-forms` field (see [Plural Forms](http://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html)), otherwise plural translation will be done according to English plural function. For example:
+
+```js
+// translations.json
+{
+  "he": {
+    "headers": {
+      "plural-forms": "nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? 2 : 3);"
+    },
+    "translations": { /*...*/ }
+  }
+}
 ```
 
 ---
